@@ -13,9 +13,9 @@ RBT özelleştirilmiş öz-dengeli ikili arama ağacıdır. öz-dengeli ikili ar
 
 ## Kullanılan Terimlerin İngilizceleri
 Bu Terimlerin ingilizcelerini ve kısaltmalarını bilmek birçok yerde yararlı olacaktır. Birçok türkçe derste terimler ingilizce halleri ile kullanılmkatadır.
-[![Gerçek bir ikili ağaç")](https://i.pinimg.com/736x/c3/30/c7/c330c7c8563f5e39361a4ef96199d57f--binary-tree-computer-science.jpg)
+[![Gerçek bir ikili ağaç")](https://i.pinimg.com/736x/c3/30/c7/c330c7c8563f5e39361a4ef96199d57f--binary-tree-computer-science.jpg=100x20)
 
-[![Genelde bu ve benzeri derslerdeki gösterim")](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Falgorithmsandme.com%2Fwp-content%2Fuploads%2F2018%2F05%2Fbalanced-binary-tree.png&f=1&nofb=1)
+[![Genelde bu ve benzeri derslerdeki gösterim")](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Falgorithmsandme.com%2Fwp-content%2Fuploads%2F2018%2F05%2Fbalanced-binary-tree.png&f=1&nofb=1=100x20)
 
 
 | Türkçe | İngilizce | Kısaltma
