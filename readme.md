@@ -23,14 +23,24 @@ width="200" height="200"/>
 
 Yukarıdaki Resimde farklı bir ağaç görüyoruz kök düğümü 5 numaralı düğüm olan bu ağacın tüm düğümlerinin çocukları sağ tarafta ve bu durumda ağacın solu bonboş durumda, bu hali ile ağaç olarak kabul edebiliriz ancak sağ ve sol taraftaki düğüm sayısını ve yüksekliğini karşılaştırdığımızda dengesiz bir ağaç olduğu aşikar. 
 
-Dengeli ağaçlarda amacımız ağaç oluşturulurken belirli kurallar tannımlarız ve ağaca eleman ekleme veya silme işlemlerini bu kurallara uyarak yaparız bu sayede ağacın belirli özellikleri sağlamasını garanti ederiz. Garanti edilen özellikler ağaçlara ve kurallara bağlı olarak değişir. Bizim bu yazının geri kalanında işleyeceğimiz RBT'ler ise ................. gibi özellikleri sağlamak için belirli kurallar koymuşlardır.
+Dengeli ağaçlarda amacımız ağaç oluşturulurken belirli kurallar tannımlarız ve ağaca eleman ekleme veya silme işlemlerini bu kurallara uyarak yaparız bu sayede ağacın belirli özellikleri sağlamasını garanti ederiz. Garanti edilen özellikler ağaçlara ve kurallara bağlı olarak değişir. Bizim bu yazının geri kalanında işleyeceğimiz RBT'ler ise ağacın dengeli olmasını sağlamak için belirli kurallar koymuşlardır.
 
 ## Red Black Tree Kuralları ve Amaçları
-RBT adındanda anlaşılacağı gibi düğümlere farklı renk atamaları yapar ve bu renkler sayesinde verilen kurallarla ağaçta ................. özelliklerini garant eder.
+RBT adındanda anlaşılacağı gibi düğümlere farklı renk atamaları yapar ve bu renkler sayesinde verilen kurallarla ağaçta denge sağlanır. Denge ağaca yapılacak değişikliklerin (ekleme, silme, arama) daha hızlı olmasını sağlar. RBT veriyi tutuş şekli sayesinde ekleme, arama, silme gibi temel işlevlerin en kötü durum analizinde (worst case analysis) O(logn)'dir, yani n eleman için bu işlemleri ön kötü durumda **O(*logn*)** zamanda yapacağını garanti eder.
+
 ### RBT için Kurallarımız
-* Kök düğümü her zaman **siyah** renktedir.
-* Herhangi bir *kırmızı* renkli düğümün çocuklarının ve ebeveyninin rengi *kırmızı* **olamaz**.
-* Kök düğümden tüm yaprak düğümlerine kadar giden tüm farklı yollardaki *siyah* renkli düğümlerin sayısı **eşittir**.
+1. Ağaçtaki tüm düğümlerin bir rengi vardır, bu renk **kırmızı** ya da **siyah** olabilir.
+2. Kök düğümü her zaman **siyah** renktedir.
+3. Tüm yaprak düğümler **siyah** renktedir.
+3. Herhangi bir *kırmızı* renkli düğümün çocukları **siyah** renktedir.
+4. Herhangi bir düğümden, yaprak düğüme kadar gidilen bütün yollarda eşit sayıda **siyah** düğüm bulunur.
+
+## Red Black Tree Temel İşlemler
+
+### Arama İşlemi (Search)
+Ağaç üzerinde bir değer ararken önce kök düğümüne bakılır, eğer aranan değer kök düğümü ise arama bitti demektir. Aranan kök düğümü değilse aranan değer ile kök düğümü karşılaştırılır, aranan değer kök düğümün değerinden küçükse sola büyükse sağa gidilir, ve gidilen düğüm içinde yukarıdakiler tekrarlanır. Aranan değer bulunana kadar ya da boş (Null) değere ulaşıncaya kadar bu işlem devam eder.
+
+### Ekleme İşlemi (İnsertion)
 
 ## Kullanılan Terimlerin İngilizceleri
 Bu Terimlerin ingilizcelerini ve kısaltmalarını bilmek birçok yerde yararlı olacaktır. Birçok türkçe derste terimler ingilizce halleri ile kullanılmkatadır.
