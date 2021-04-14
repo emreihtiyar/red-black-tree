@@ -1,7 +1,6 @@
 #if !defined(__RB__)
 #define __RB__
 
-
 typedef struct Node{
     int data;
     short color;
@@ -14,13 +13,10 @@ node* add(node* root, int data);//!Geri dönüşü node* olan bir ekleme fonksyo
 
 void insert(node** rootAdres, int data);//!Geri dönüşü void olan bir ekleme fonksyonu
 
-void leftRotate(node** root,node* x);
-void rightRotate(node** root,node* x);
-
-node* minimum(node* node);
-node* maximum(node* node);
-
 void delete(node** root, int key);
+
+int minimum(node* root);
+int maximum(node* root);
 
 void inOrderTravel(node* root);
 void preOrderTravel(node* root);

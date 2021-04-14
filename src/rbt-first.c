@@ -6,7 +6,7 @@
 const short RBT_BLACK = 0;
 const short RBT_RED = 1;
 
-//! Ağaç Rotate ve min max
+//! Yardımcı Fonksiyonlar: Rotate, min, max, min node, min max, transplant, travel 
 void leftRotate(node **root, node *x)
 { //TODO: İsmi LEFT olmasına rağmen anlatım biraz garip bu nedenle kullanılan yerleri bir karşılaştır.
     node *y = x->right;
@@ -51,8 +51,7 @@ void rightRotate(node **root, node *x)
     y->right = x;
     x->parent = y;
 }
-
-node *minimum(node *node)
+node* minimum_node(node *node)
 {
     while (node->left != NULL)
     {
@@ -60,9 +59,7 @@ node *minimum(node *node)
     }
     return node;
 }
-
-// find the node with the maximum key
-node *maximum(node *node)
+node* maximum_node(node *node)
 {
     while (node->right != NULL)
     {
@@ -70,9 +67,65 @@ node *maximum(node *node)
     }
     return node;
 }
+void transplant(node **root, node *u, node *v)
+{
+    //printf("transplant\n");
+    if (u->parent == NULL)
+    {
+        //printf("transplant->if\n");
+        (*root) = v;
+    }
+    else if (u == u->parent->left)
+    {
+        //printf("transplant->elsif\n");
+        u->parent->left = v;
+    }
+    else if (u == u->parent->right)
+    {
+        //printf("transplant->else\n");
+        u->parent->right = v;
+    }
+    //printf("transplant-son-1\n");
+    if (v != NULL)
+    {
+        //printf("v->data %d\n", v->data);
+        v->parent = u->parent;
+    }
+    //printf("transplant-son\n");
+}
+void inOrderTravel(node *root)
+{
+    if (root == NULL)
+        return;
+    inOrderTravel(root->left);
+    printf("%d[%d] ", root->data, root->color);
+    inOrderTravel(root->right);
+}
+void preOrderTravel(node *root)
+{
+    if (root == NULL)
+        return;
+    printf("%d ", root->data);
+    preOrderTravel(root->right);
+    preOrderTravel(root->left);
+}
+void postOrderTravel(node *root)
+{
+    if (root == NULL)
+        return;
+    postOrderTravel(root->left);
+    postOrderTravel(root->right);
+    printf("%d ", root->data);
+}
+int minimum(node* root){
+    return minimum_node(root)->data;
+}
+int maximum(node* root){
+    return maximum_node(root)->data;
+}
 
 //! Eleman ekleme
-void fixInsert(node **root, node *child)
+void fix_insert(node **root, node *child)
 {
     node *uncle = NULL;
     /*Babanın rengi kırmızsı ve eklenen düğüm her ha zaman kırmızı 
@@ -240,53 +293,37 @@ void insert(node **rootAdres, int data)
         return;
     }
 
-    fixInsert(rootAdres, temp);
+    fix_insert(rootAdres, temp);
 }
 
 //!Silme işlemi
-void transplant(node **root, node *u, node *v)
-{
-    printf("transplant\n");
-    if (u->parent == NULL)
-    {
-        printf("transplant->if\n");
-        (*root) = v;
-    }
-    else if (u == u->parent->left)
-    {
-        printf("transplant->elsif\n");
-        u->parent->left = v;
-    }
-    else if (u == u->parent->right)
-    {
-        printf("transplant->else\n");
-        u->parent->right = v;
-    }
-    printf("transplant-son-1\n");
-    if (v != NULL)
-    {
-        printf("v->data %d\n", v->data);
-        v->parent = u->parent;
-    }
-
-    printf("transplant-son\n");
-}
-
-void fixDelete(node **rootAdress, node *x)
-{ //TODO: x NULL geliyor
+void fix_delete(node **rootAdress, node *x)
+{ //TODO: x NULL geldiğinde hata oluyor bu durumu değerlendir
     node *s;
     node *root = (*rootAdress);
-    printf("fixDelete %d\n", x->data);
+    //printf("fix_delete \n");
+    /*
+    if (x == root)
+    {
+        node* leftMax = maximum_node(x->left);
+        leftMax->parent->right = leftMax->left;
+        if (leftMax->left != NULL)
+            leftMax->left->parent = leftMax->parent;
+        root = leftMax;
+        leftMax->parent = NULL;
+        x=leftMax;
+    }
+    */
     while (x != root && x->color == RBT_BLACK)
     {
         if (x == x->parent->left)
         {
-            perror("fixDelete->if\n");
+            perror("fix_delete->if\n");
             s = x->parent->right;
             if (s->color == RBT_RED)
             {
                 //case 3.1
-                perror("fixDelete->if->if\n");
+                perror("fix_delete->if->if\n");
                 s->color = RBT_BLACK;
                 x->parent->color = RBT_RED;
                 leftRotate(rootAdress, x->parent);
@@ -296,7 +333,7 @@ void fixDelete(node **rootAdress, node *x)
             if (s->left->color == RBT_BLACK && s->right->color == RBT_BLACK)
             {
                 //case 3.2
-                perror("fixDelete->if->if2\n");
+                perror("fix_delete->if->if2\n");
                 s->color = RBT_RED;
                 x = x->parent;
             }
@@ -305,14 +342,14 @@ void fixDelete(node **rootAdress, node *x)
                 if (s->right->color == RBT_BLACK)
                 {
                     // case 3.3
-                    perror("fixDelete->else->if\n");
+                    perror("fix_delete->else->if\n");
                     s->left->color = RBT_BLACK;
                     s->color = RBT_RED;
                     rightRotate(rootAdress, s);
                     s = x->parent->right;
                 }
                 //case 3.4
-                perror("fixDelete->if->else->case3.4\n");
+                perror("fix_delete->if->else->case3.4\n");
                 s->color = x->parent->color;
                 x->parent->color = RBT_BLACK;
                 s->right->color = RBT_BLACK;
@@ -322,12 +359,12 @@ void fixDelete(node **rootAdress, node *x)
         }
         else
         {
-            perror("fixDelete->else\n");
+            perror("fix_delete->else\n");
             s = x->parent->left;
             if (s->color == RBT_RED)
             {
                 //case 3.1
-                perror("fixDelete->else->if\n");
+                perror("fix_delete->else->if\n");
                 s->color = RBT_BLACK;
                 x->parent->color = RBT_RED;
                 rightRotate(rootAdress, x->parent);
@@ -337,7 +374,7 @@ void fixDelete(node **rootAdress, node *x)
             if (s->right->color == RBT_BLACK && s->right->color == RBT_BLACK)
             {
                 // case 3.2
-                perror("fixDelete->else->if2\n");
+                perror("fix_delete->else->if2\n");
                 s->color = RBT_RED;
                 x = x->parent;
             }
@@ -346,14 +383,14 @@ void fixDelete(node **rootAdress, node *x)
                 if (s->left->color == RBT_BLACK)
                 {
                     // case 3.3
-                    perror("fixDelete->else->else\n");
+                    perror("fix_delete->else->else\n");
                     s->right->color = RBT_BLACK;
                     s->color = RBT_RED;
                     leftRotate(rootAdress, s);
                     s = x->parent->left;
                 }
                 //case 3.4
-                perror("fixDelete->else->case3.4\n");
+                perror("fix_delete->else->case3.4\n");
                 s->color = x->parent->color;
                 x->parent->color = RBT_BLACK;
                 s->left->color = RBT_BLACK;
@@ -364,8 +401,7 @@ void fixDelete(node **rootAdress, node *x)
     }
     x->color = RBT_BLACK;
 }
-
-void delete (node **rootAdress, int key)
+void delete(node **rootAdress, int key)
 {
     node *root = (*rootAdress);
     node *x = NULL;
@@ -391,7 +427,7 @@ void delete (node **rootAdress, int key)
 
     if (z == NULL)
     {
-        //printf("Couldn't find key in the tree\n");
+        printf("Couldn't find key in the tree\n");
         return;
     }
 
@@ -399,9 +435,9 @@ void delete (node **rootAdress, int key)
     y = z;
     short y_orginal_color = y->color;
     //printf("xx\n");
-
-    if (z->left == NULL)
+    if (z->left == NULL) 
     {
+    //silinecek düğümün solu boş bu nedenle, silinen düğüm yerine sağ alt düğüm yazılır.
         x = z->right;
         //printf("if->transplant öncesi\n");
         transplant(rootAdress, z, z->right);
@@ -409,6 +445,7 @@ void delete (node **rootAdress, int key)
     }
     else if (z->right == NULL)
     {
+        //silinecek düğümün sağı boş bu nedenle, silinen düğüm yerine sol alt düğüm yazılır.
         x = z->left;
         //printf("else if->transplant öncesi\n");
         transplant(rootAdress, z, z->left);
@@ -416,10 +453,10 @@ void delete (node **rootAdress, int key)
     }
     else
     {
-        y = minimum(z->right);
+        y = minimum_node(z->right);
         y_orginal_color = y->color;
         x = y->right;
-        printf("y: %d\n", y->data);
+        //printf("y: %d\n", y->data);
         if (y->parent == z)
         {
             if (x != NULL)
@@ -440,37 +477,18 @@ void delete (node **rootAdress, int key)
     }
 
     free(z);
-
+/*
+    if (x == NULL)
+    {
+        fix_delete(rootAdress, y);
+        return;
+    }
+    
+*/
     if (y_orginal_color == RBT_BLACK)
     {
-        printf("fix delete öncesi\n");
-        fixDelete(rootAdress, x);
-        printf("fix delete sonrası\n");
+        //printf("fix delete öncesi\n");
+        fix_delete(rootAdress, x);
+        //printf("fix delete sonrası\n");
     }
-}
-
-//!Düğümlerde dolaşma
-void inOrderTravel(node *root)
-{
-    if (root == NULL)
-        return;
-    inOrderTravel(root->left);
-    printf("%d[%d] ", root->data, root->color);
-    inOrderTravel(root->right);
-}
-void preOrderTravel(node *root)
-{
-    if (root == NULL)
-        return;
-    printf("%d ", root->data);
-    preOrderTravel(root->right);
-    preOrderTravel(root->left);
-}
-void postOrderTravel(node *root)
-{
-    if (root == NULL)
-        return;
-    postOrderTravel(root->left);
-    postOrderTravel(root->right);
-    printf("%d ", root->data);
 }
