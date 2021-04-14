@@ -236,31 +236,31 @@ void insert(node** rootAdres, int data){ //!Geri dönüşü void olan bir ekleme
 }
 
 //!Silme işlemi
-void swap(node** root, node* u, node* v){
-    //printf("swap\n");
+void transplant(node** root, node* u, node* v){
+    //printf("transplant\n");
     if (u->parent == NULL)
     {
-        //printf("swap->if\n");
+        //printf("transplant->if\n");
         (*root) = v;
     }
     else if (u == u->parent->left)
     {
-        //printf("swap->elsif\n");
+        //printf("transplant->elsif\n");
         u->parent->left = v;
     }
     else
     {
-        //printf("swap->else\n");
+        //printf("transplant->else\n");
         u->parent->right = v;
     }
-    //printf("swap-son-1\n");
+    //printf("transplant-son-1\n");
     if (v != NULL)
     {
         //printf("v->data %d", v->data);
         v->parent = u->parent;
     }
     
-    printf("swap-son\n");
+    printf("transplant-son\n");
 }
 
 void fixDelete(node** rootAdress, node* x){ //TODO: x NULL geliyor 
@@ -392,16 +392,16 @@ void delete(node **rootAdress, int key){
     if (z->left == NULL)
     {
         x = z->right;
-        //printf("if->swap öncesi\n");
-        swap(rootAdress, z, z->right);
-        //printf("if->swap sonrası\n");
+        //printf("if->transplant öncesi\n");
+        transplant(rootAdress, z, z->right);
+        //printf("if->transplant sonrası\n");
     }
     else if (z->right == NULL)
     {
         x = z->left;
-        //printf("else if->swap öncesi\n");
-        swap(rootAdress, z, z->left);
-        //printf("else if->swap sonrası\n");
+        //printf("else if->transplant öncesi\n");
+        transplant(rootAdress, z, z->left);
+        //printf("else if->transplant sonrası\n");
     }
     else
     {
@@ -418,16 +418,16 @@ void delete(node **rootAdress, int key){
         }
         else
         {
-            //printf("else->else swap-öncesi\n");
-            swap(rootAdress, y, y->right);
-            //printf("else->else swap-sonrası\n");
+            //printf("else->else transplant-öncesi\n");
+            transplant(rootAdress, y, y->right);
+            //printf("else->else transplant-sonrası\n");
             y->right = z->right;
             y->right->parent = y;
         }
 
-        //printf("else swap-öncesi\n");
-        swap(rootAdress, z, y);
-        //printf("else swap-sonrası\n");
+        //printf("else transplant-öncesi\n");
+        transplant(rootAdress, z, y);
+        //printf("else transplant-sonrası\n");
         y->left = z->left;
         y->left->parent = y;
         y->color = z->color;

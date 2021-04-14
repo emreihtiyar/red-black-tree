@@ -31,8 +31,8 @@ int main(int argc, char const *argv[])
 
     //TODO: Root düğüm silinmeye çalışıldığında hata alıyorum, Diğer düğmümler denenedi çalışıyor
     //delete(&root, 12); //Doğru çalışıyor.
-    //delete(&root, 11); //Doğru çalışıyor.
-    //delete(&root, 12); //Doğru çalışıyor.
+    delete(&root, 11); //Doğru çalışıyor.
+    delete(&root, 12); //Doğru çalışıyor.
 
     printf("root: %d\n",root->data);
     //printf("root->right: %d\n",root->right->data);
