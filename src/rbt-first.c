@@ -7,22 +7,24 @@ const short RBT_BLACK = 0;
 const short RBT_RED = 1;
 
 //! Ağaç Rotate ve min max
-void leftRotate(node** root,node* x){ //TODO: İsmi LEFT olmasına rağmen anlatım biraz garip bu nedenle kullanılan yerleri bir karşılaştır.
-    node* y = x->right;
+void leftRotate(node **root, node *x)
+{ //TODO: İsmi LEFT olmasına rağmen anlatım biraz garip bu nedenle kullanılan yerleri bir karşılaştır.
+    node *y = x->right;
     x->right = y->left;
 
     if (y->left != NULL)
     {
-        y->left->parent=x;
+        y->left->parent = x;
     }
-    y->parent = x->parent;    
+    y->parent = x->parent;
 
     if (x->parent == NULL)
     {
         root = &y; //! DETAYLI DÜŞÜN
-    }else if (x == x->parent->left)
+    }
+    else if (x == x->parent->left)
     {
-        x->parent->left=y;
+        x->parent->left = y;
     }
     else
     {
@@ -31,8 +33,9 @@ void leftRotate(node** root,node* x){ //TODO: İsmi LEFT olmasına rağmen anlat
     y->left = x;
     x->parent = y;
 }
-void rightRotate(node** root,node* x){
-    node* y = x->left;
+void rightRotate(node **root, node *x)
+{
+    node *y = x->left;
     x->left = y->right;
     if (y->right != NULL)
         y->right->parent = x;
@@ -49,7 +52,7 @@ void rightRotate(node** root,node* x){
     x->parent = y;
 }
 
-node* minimum(node* node)
+node *minimum(node *node)
 {
     while (node->left != NULL)
     {
@@ -59,7 +62,7 @@ node* minimum(node* node)
 }
 
 // find the node with the maximum key
-node* maximum(node* node)
+node *maximum(node *node)
 {
     while (node->right != NULL)
     {
@@ -69,12 +72,14 @@ node* maximum(node* node)
 }
 
 //! Eleman ekleme
-void fixInsert(node **root, node* child){
-    node* uncle = NULL;
+void fixInsert(node **root, node *child)
+{
+    node *uncle = NULL;
     /*Babanın rengi kırmızsı ve eklenen düğüm her ha zaman kırmızı 
     bu ndenele kırmızının çocuğu kırmızı oldu ve düzeltilmeye ihtiyaç var
     */
-    if (child == (*root) || child->parent == NULL){
+    if (child == (*root) || child->parent == NULL)
+    {
         (*root)->color = RBT_BLACK;
         return;
     }
@@ -123,18 +128,19 @@ void fixInsert(node **root, node* child){
                     leftRotate(root, child);
                 }
                 child->parent->color = RBT_BLACK;
-                child->parent->parent->color =RBT_RED;
+                child->parent->parent->color = RBT_RED;
                 rightRotate(root, child->parent->parent);
             }
         }
-        if (child == (*root)) {
+        if (child == (*root))
+        {
             break;
         }
     }
     (*root)->color = RBT_BLACK;
 }
 
-node* add(node *root, int data)
+node *add(node *root, int data)
 {
     if (root == NULL) //ilk ekleme yani root boşsa
     {
@@ -188,12 +194,13 @@ node* add(node *root, int data)
         }
     }
 }
-void insert(node** rootAdres, int data){ //!Geri dönüşü void olan bir ekleme fonksyonu
-    node* root = (*rootAdres);
-    if ((root)== NULL) //İlk ekleme yani Root düğümünün eklenmesi
+void insert(node **rootAdres, int data)
+{ //!Geri dönüşü void olan bir ekleme fonksyonu
+    node *root = (*rootAdres);
+    if ((root) == NULL) //İlk ekleme yani Root düğümünün eklenmesi
     {
         //Yeni bir node oluştur ve root artık bu node'u göstersin
-        node* temp = (node*)malloc(sizeof(node));
+        node *temp = (node *)malloc(sizeof(node));
         temp->color = RBT_BLACK;
         temp->data = data;
         temp->left = NULL;
@@ -202,19 +209,19 @@ void insert(node** rootAdres, int data){ //!Geri dönüşü void olan bir ekleme
         (*rootAdres) = temp;
         return;
     }
-    node* iterParent = NULL;
-    node* iter = root;
+    node *iterParent = NULL;
+    node *iter = root;
     //iter NULL oluncaya kadar devam et bu sayede gelen datayı yerleştireceğimiz yeri buluruz
     while (iter != NULL)
     {
-        iterParent=iter;//iterin Parent'ını tutmak parent atamasında ve gelen datayı yerleştirmede işe yarayacak
+        iterParent = iter; //iterin Parent'ını tutmak parent atamasında ve gelen datayı yerleştirmede işe yarayacak
         if (data > iter->data)
             iter = iter->right;
         else
             iter = iter->left;
     }
     //Create New Node
-    node* temp = (node*)malloc(sizeof(node));
+    node *temp = (node *)malloc(sizeof(node));
     temp->color = RBT_RED; //Yeni düğüm KIRMIZI
     temp->data = data;
     temp->parent = iterParent; // yeni düğümünün parent'ı iterin parentı yani NULL olan yaprağın atası
@@ -228,7 +235,8 @@ void insert(node** rootAdres, int data){ //!Geri dönüşü void olan bir ekleme
         iterParent->left = temp;
 
     // if the grandparent is null, simply return
-    if (temp->parent->parent == NULL) {
+    if (temp->parent->parent == NULL)
+    {
         return;
     }
 
@@ -236,37 +244,39 @@ void insert(node** rootAdres, int data){ //!Geri dönüşü void olan bir ekleme
 }
 
 //!Silme işlemi
-void transplant(node** root, node* u, node* v){
-    //printf("transplant\n");
+void transplant(node **root, node *u, node *v)
+{
+    printf("transplant\n");
     if (u->parent == NULL)
     {
-        //printf("transplant->if\n");
+        printf("transplant->if\n");
         (*root) = v;
     }
     else if (u == u->parent->left)
     {
-        //printf("transplant->elsif\n");
+        printf("transplant->elsif\n");
         u->parent->left = v;
     }
-    else
+    else if (u == u->parent->right)
     {
-        //printf("transplant->else\n");
+        printf("transplant->else\n");
         u->parent->right = v;
     }
-    //printf("transplant-son-1\n");
+    printf("transplant-son-1\n");
     if (v != NULL)
     {
-        //printf("v->data %d", v->data);
+        printf("v->data %d\n", v->data);
         v->parent = u->parent;
     }
-    
+
     printf("transplant-son\n");
 }
 
-void fixDelete(node** rootAdress, node* x){ //TODO: x NULL geliyor 
-    node* s;
-    node* root = (*rootAdress);
-    printf("fixDelete %d\n",x->data);
+void fixDelete(node **rootAdress, node *x)
+{ //TODO: x NULL geliyor
+    node *s;
+    node *root = (*rootAdress);
+    printf("fixDelete %d\n", x->data);
     while (x != root && x->color == RBT_BLACK)
     {
         if (x == x->parent->left)
@@ -355,11 +365,12 @@ void fixDelete(node** rootAdress, node* x){ //TODO: x NULL geliyor
     x->color = RBT_BLACK;
 }
 
-void delete(node **rootAdress, int key){
-    node* root = (*rootAdress);
-    node* x = NULL;
-    node* y = NULL;
-    node* z = NULL;
+void delete (node **rootAdress, int key)
+{
+    node *root = (*rootAdress);
+    node *x = NULL;
+    node *y = NULL;
+    node *z = NULL;
 
     while (root != NULL)
     {
@@ -388,7 +399,7 @@ void delete(node **rootAdress, int key){
     y = z;
     short y_orginal_color = y->color;
     //printf("xx\n");
-    
+
     if (z->left == NULL)
     {
         x = z->right;
@@ -405,31 +416,26 @@ void delete(node **rootAdress, int key){
     }
     else
     {
-        //printf("else\n");
         y = minimum(z->right);
         y_orginal_color = y->color;
         x = y->right;
-
+        printf("y: %d\n", y->data);
         if (y->parent == z)
         {
-            //printf("else->if\n");
             if (x != NULL)
                 x->parent = y;
         }
         else
         {
-            //printf("else->else transplant-öncesi\n");
             transplant(rootAdress, y, y->right);
-            //printf("else->else transplant-sonrası\n");
             y->right = z->right;
-            y->right->parent = y;
+            if (y->right != NULL)
+                y->right->parent = y;
         }
-
-        //printf("else transplant-öncesi\n");
         transplant(rootAdress, z, y);
-        //printf("else transplant-sonrası\n");
         y->left = z->left;
-        y->left->parent = y;
+        if (y->left != NULL)
+            y->left->parent = y;
         y->color = z->color;
     }
 
@@ -437,11 +443,13 @@ void delete(node **rootAdress, int key){
 
     if (y_orginal_color == RBT_BLACK)
     {
+        printf("fix delete öncesi\n");
         fixDelete(rootAdress, x);
+        printf("fix delete sonrası\n");
     }
 }
 
-//!Düğümlerde dolaşma 
+//!Düğümlerde dolaşma
 void inOrderTravel(node *root)
 {
     if (root == NULL)

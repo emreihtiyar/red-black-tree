@@ -11,6 +11,9 @@ int main(int argc, char const *argv[])
     insert(&root, 9);
     insert(&root, 12);
     insert(&root, 11);
+    //insert(&root, 21);
+    //insert(&root, 17);
+    //insert(&root, 18);
 
     inOrderTravel(root);// Sol Root Sağ 
     printf("\n");
@@ -31,8 +34,10 @@ int main(int argc, char const *argv[])
 
     //TODO: Root düğüm silinmeye çalışıldığında hata alıyorum, Diğer düğmümler denenedi çalışıyor
     //delete(&root, 12); //Doğru çalışıyor.
-    delete(&root, 11); //Doğru çalışıyor.
-    delete(&root, 12); //Doğru çalışıyor.
+    //delete(&root, 11); //Doğru çalışıyor.
+    //delete(&root, 12); //Doğru çalışıyor.
+
+    delete(&root, 20);
 
     printf("root: %d\n",root->data);
     //printf("root->right: %d\n",root->right->data);
