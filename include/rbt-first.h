@@ -10,12 +10,17 @@ typedef struct Node{
     struct Node* parent;
 } node;
 
-node* add(node* root, int data);
+node* add(node* root, int data);//!Geri dönüşü node* olan bir ekleme fonksyonu
 
-node* rotationLeft(node* root);
-node* rotationRight(node* root);
-node* rotationRightLeft(node* root);
-node* rotationLeftRight(node* root);
+void insert(node** rootAdres, int data);//!Geri dönüşü void olan bir ekleme fonksyonu
+
+void leftRotate(node** root,node* x);
+void rightRotate(node** root,node* x);
+
+node* minimum(node* node);
+node* maximum(node* node);
+
+void delete(node** root, int key);
 
 void inOrderTravel(node* root);
 void preOrderTravel(node* root);
