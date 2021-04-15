@@ -4,8 +4,23 @@
 
 int main(int argc, char const *argv[])
 {
-    node* root=NULL;
+    node* root = (node *)malloc(sizeof(node));
+    root->color = 0;
+    root->data = 15;
+    root->left = NULL;
+    root->right = NULL;
+    root->parent = NULL;
     
+    insert2(root, 20);
+    insert2(root, 9);
+    insert2(root, 12);
+    insert2(root, 11);
+    insert2(root, 21);
+    insert2(root, 17);
+    insert2(root, 18);
+    insert2(root, 0);
+/*
+    node* root= NULL;
     insert(&root, 15);
     insert(&root, 20);
     insert(&root, 9);
@@ -14,14 +29,17 @@ int main(int argc, char const *argv[])
     insert(&root, 21);
     insert(&root, 17);
     insert(&root, 18);
-
+    insert(&root, 0);
+*/
     printf("root: %d\n",root->data);
-    inOrderTravel(root);// Sol Root Sağ 
+    in_order_travelsal(root);// Sol Root Sağ 
     printf("\n");
-    preOrderTravel(root);// Root Sağ Sol
+    pre_order_travelsal(root);// Root Sağ Sol
     printf("\n");
-    postOrderTravel(root);//Sol Sağ Orta
+    post_order_travelsal(root);//Sol Sağ Orta
     printf("\n");
+
+    printf("%d is there in tree: %s\n",0, is_there(root, 0) ? "Var":"Yok");
 
 /*
     printf("root: %d\n",root->data);
@@ -41,11 +59,11 @@ int main(int argc, char const *argv[])
 
     printf("root: %d\n",root->data);
 
-    inOrderTravel(root);// Sol Root Sağ 
+    in_order_travelsal(root);// Sol Root Sağ 
     printf("\n");
-    preOrderTravel(root);// Root Sağ Sol
+    pre_order_travelsal(root);// Root Sağ Sol
     printf("\n");
-    postOrderTravel(root);//Sol Sağ Orta
+    post_order_travelsal(root);//Sol Sağ Orta
     printf("\n");
 
     return 0;
