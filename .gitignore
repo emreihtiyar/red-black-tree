@@ -7,3 +7,5 @@ lib
 .vscode
 vscode
 .json
+
+test/

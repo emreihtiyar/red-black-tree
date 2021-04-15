@@ -41,7 +41,7 @@ typedef struct red_black_tree{
 } rbt;
 */
 
-
+//! insert MACRO
 #define insert(root,data) _Generic((data), \
     int: insert_int \
 )(root, data)
@@ -51,6 +51,7 @@ typedef struct red_black_tree{
     char*: insert_str, \
 */
 
+//! Traversal Macro
 #define in_order_travelsal(root) _Generic((root->data), \
     int: in_order_travelsal_int, \
     default: travelsal_error \
@@ -63,19 +64,28 @@ typedef struct red_black_tree{
     int: pre_order_travelsal_int, \
     default: travelsal_error \
 )(root)
+
 #define post_order_travelsal(root) _Generic((root->data), \
     int: post_order_travelsal_int, \
     default: travelsal_error \
 )(root)
 
 
-node* init(int data);
-node* add(node* root, int data);//!Geri dönüşü node* olan bir ekleme fonksyonu
+//! init MACRO
+#define init(data) _Generic((data), \
+    int: init_int, \
+    float: init_float,\
+    double: init_double, \
+    char*: init_string \
+)(data)
+node* init_int(int data);
+node_f* init_float(float data);
+node_d* init_double(double data);
+node_s* init_string(char* data);
 
-void insert_int(node** rootAdres, int data);//!Geri dönüşü void olan bir ekleme fonksyonu
-void insert2(node* root, int data);
 
-void delete(node** root, int key);
+void insert_int(node* root, int data);
+node* delete(node* root, int key);
 
 int minimum(node* root);
 int maximum(node* root);
