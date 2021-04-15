@@ -3,8 +3,10 @@
 #include <unistd.h>
 #include "rbt-first.h"
 
+
 const short RBT_BLACK = 0;
 const short RBT_RED = 1;
+
 
 //! Yardımcı Fonksiyonlar: Rotate, min, max, min node, min max, transplant, travel 
 void leftRotate(node **root, node *x)
@@ -679,18 +681,6 @@ void fix_insert2(node* root, node *child)
 }
 void insert2(node* root, int data)
 { //!Geri dönüşü void olan bir ekleme fonksyonu
-    /*if (root == NULL) //İlk ekleme yani Root düğümünün eklenmesi
-    {
-        //Yeni bir node oluştur ve root artık bu node'u göstersin
-        node *temp = (node *)malloc(sizeof(node));
-        temp->color = RBT_BLACK;
-        temp->data = data;
-        temp->left = NULL;
-        temp->right = NULL;
-        temp->parent = NULL;
-        root = temp;
-        return root;
-    }*/
     node *iterParent = NULL;
     node *iter = root;
     //iter NULL oluncaya kadar devam et bu sayede gelen datayı yerleştireceğimiz yeri buluruz
