@@ -3,14 +3,15 @@
 #include "rbt-first.h"
 
 int main(int argc, char const *argv[])
-{
+{/*
     node* root = (node *)malloc(sizeof(node));
     root->color = BLACK;
     root->data = 15;
     root->left = NULL;
     root->right = NULL;
-    root->parent = NULL;
-    
+    root->parent = NULL;*/
+
+    node* root = init(15); 
     insert2(root, 20);
     insert2(root, 9);
     insert2(root, 12);

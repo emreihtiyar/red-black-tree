@@ -10,7 +10,6 @@ typedef struct Node{
     struct Node* right;
     struct Node* parent;
 } node;
-
 typedef struct Node_float{
     float data;
     short color;
@@ -18,6 +17,20 @@ typedef struct Node_float{
     struct Node* right;
     struct Node* parent;
 } node_f;
+typedef struct Node_double{
+    double data;
+    short color;
+    struct Node* left;
+    struct Node* right;
+    struct Node* parent;
+} node_d;
+typedef struct Node_string{
+    char* data;
+    short color;
+    struct Node* left;
+    struct Node* right;
+    struct Node* parent;
+} node_s;
 
 /*
 typedef struct red_black_tree{
