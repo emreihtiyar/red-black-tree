@@ -3,10 +3,10 @@
 #include <unistd.h>
 #include "rbt-first.h"
 
-
-const short RBT_BLACK = 0;
-const short RBT_RED = 1;
-
+/*
+const short BLACK = 0;
+const short RED = 1;
+*/
 
 //! Yardımcı Fonksiyonlar: Rotate, min, max, min node, min max, transplant, travel 
 void leftRotate(node **root, node *x)
@@ -101,14 +101,14 @@ void in_order_travelsal_int(node *root)
     if (root == NULL)
         return;
     in_order_travelsal_int(root->left);
-    printf("%d [%c] ", root->data, root->color == RBT_RED ? 'R':'B'); //a > b ? a : b;
+    printf("%d [%c] ", root->data, root->color == RED ? 'R':'B'); //a > b ? a : b;
     in_order_travelsal_int(root->right);
 }
 void pre_order_travelsal_int(node *root)
 {
     if (root == NULL)
         return;
-    printf("%d [%c] ", root->data, root->color == RBT_RED ? 'R':'B'); //a > b ? a : b;
+    printf("%d [%c] ", root->data, root->color == RED ? 'R':'B'); //a > b ? a : b;
     pre_order_travelsal_int(root->right);
     pre_order_travelsal_int(root->left);
 }
@@ -118,7 +118,7 @@ void post_order_travelsal_int(node *root)
         return;
     post_order_travelsal_int(root->left);
     post_order_travelsal_int(root->right);
-    printf("%d [%c] ", root->data, root->color == RBT_RED ? 'R':'B'); //a > b ? a : b;
+    printf("%d [%c] ", root->data, root->color == RED ? 'R':'B'); //a > b ? a : b;
 }
 /*
 //float
@@ -127,14 +127,14 @@ void in_order_travelsal_float(node *root)
     if (root == NULL)
         return;
     in_order_travelsal_float(root->left);
-    printf("%f [%c] ", root->data, root->color == RBT_RED ? 'R':'B'); //a > b ? a : b;
+    printf("%f [%c] ", root->data, root->color == RED ? 'R':'B'); //a > b ? a : b;
     in_order_travelsal_float(root->right);
 }
 void pre_order_travelsal_float(node *root)
 {
     if (root == NULL)
         return;
-    printf("%f [%c] ", root->data, root->color == RBT_RED ? 'R':'B'); //a > b ? a : b;
+    printf("%f [%c] ", root->data, root->color == RED ? 'R':'B'); //a > b ? a : b;
     pre_order_travelsal_float(root->right);
     pre_order_travelsal_float(root->left);
 }
@@ -144,7 +144,7 @@ void post_order_travelsal_float(node *root)
         return;
     post_order_travelsal_float(root->left);
     post_order_travelsal_float(root->right);
-    printf("%f [%c] ", root->data, root->color == RBT_RED ? 'R':'B'); //a > b ? a : b;
+    printf("%f [%c] ", root->data, root->color == RED ? 'R':'B'); //a > b ? a : b;
 }
 */
 //! Eleman ekleme
@@ -156,22 +156,22 @@ void fix_insert(node **root, node *child)
     */
     if (child == (*root) || child->parent == NULL)
     {
-        (*root)->color = RBT_BLACK;
+        (*root)->color = BLACK;
         return;
     }
     if (child->parent->parent == NULL)
         return;
 
-    while (child->parent->color == RBT_RED)
+    while (child->parent->color == RED)
     {
         if (child->parent == child->parent->parent->right)
         {
             uncle = child->parent->parent->left;
-            if (uncle != NULL && uncle->color == RBT_RED)
+            if (uncle != NULL && uncle->color == RED)
             {
-                uncle->color = RBT_BLACK;
-                child->parent->color = RBT_BLACK;
-                child->parent->parent->color = RBT_RED;
+                uncle->color = BLACK;
+                child->parent->color = BLACK;
+                child->parent->parent->color = RED;
                 child = child->parent->parent;
             }
             else
@@ -181,19 +181,19 @@ void fix_insert(node **root, node *child)
                     child = child->parent;
                     rightRotate(root, child);
                 }
-                child->parent->color = RBT_BLACK;
-                child->parent->parent->color = RBT_RED;
+                child->parent->color = BLACK;
+                child->parent->parent->color = RED;
                 leftRotate(root, child->parent->parent);
             }
         }
         else
         {
             uncle = child->parent->parent->right;
-            if (uncle != NULL && uncle->color == RBT_RED)
+            if (uncle != NULL && uncle->color == RED)
             {
-                uncle->color = RBT_BLACK;
-                child->parent->color = RBT_BLACK;
-                child->parent->parent->color = RBT_RED;
+                uncle->color = BLACK;
+                child->parent->color = BLACK;
+                child->parent->parent->color = RED;
                 child = child->parent->parent;
             }
             else
@@ -203,8 +203,8 @@ void fix_insert(node **root, node *child)
                     child = child->parent;
                     leftRotate(root, child);
                 }
-                child->parent->color = RBT_BLACK;
-                child->parent->parent->color = RBT_RED;
+                child->parent->color = BLACK;
+                child->parent->parent->color = RED;
                 rightRotate(root, child->parent->parent);
             }
         }
@@ -213,7 +213,7 @@ void fix_insert(node **root, node *child)
             break;
         }
     }
-    (*root)->color = RBT_BLACK;
+    (*root)->color = BLACK;
 }
 
 node *add(node *root, int data)
@@ -221,7 +221,7 @@ node *add(node *root, int data)
     if (root == NULL) //ilk ekleme yani root boşsa
     {
         root = (node *)malloc(sizeof(node));
-        root->color = RBT_BLACK;
+        root->color = BLACK;
         root->data = data;
         root->left = NULL;
         root->right = NULL;
@@ -234,7 +234,7 @@ node *add(node *root, int data)
         if (root->right == NULL) //bulunduğum düğümün sağı boşsa
         {                        //boş olduğundan buraya ekle
             node *tmp = (node *)malloc(sizeof(node));
-            tmp->color = RBT_RED;
+            tmp->color = RED;
             tmp->data = data;
             tmp->left = NULL;
             tmp->right = NULL;
@@ -254,7 +254,7 @@ node *add(node *root, int data)
         if (root->left == NULL) //bulunduğum düğümün sol boşsa
         {                       //boş olduğundan buraya ekle
             node *tmp = (node *)malloc(sizeof(node));
-            tmp->color = RBT_RED;
+            tmp->color = RED;
             tmp->data = data;
             tmp->left = NULL;
             tmp->right = NULL;
@@ -277,7 +277,7 @@ void insert_int(node **rootAdres, int data)
     {
         //Yeni bir node oluştur ve root artık bu node'u göstersin
         node *temp = (node *)malloc(sizeof(node));
-        temp->color = RBT_BLACK;
+        temp->color = BLACK;
         temp->data = data;
         temp->left = NULL;
         temp->right = NULL;
@@ -298,7 +298,7 @@ void insert_int(node **rootAdres, int data)
     }
     //Create New Node
     node *temp = (node *)malloc(sizeof(node));
-    temp->color = RBT_RED; //Yeni düğüm KIRMIZI
+    temp->color = RED; //Yeni düğüm KIRMIZI
     temp->data = data;
     temp->parent = iterParent; // yeni düğümünün parent'ı iterin parentı yani NULL olan yaprağın atası
     temp->left = NULL;
@@ -326,7 +326,7 @@ void insert_float(node **rootAdres, float data)
     {
         //Yeni bir node oluştur ve root artık bu node'u göstersin
         node *temp = (node *)malloc(sizeof(node));
-        temp->color = RBT_BLACK;
+        temp->color = BLACK;
         temp->data = data;
         temp->left = NULL;
         temp->right = NULL;
@@ -347,7 +347,7 @@ void insert_float(node **rootAdres, float data)
     }
     //Create New Node
     node *temp = (node *)malloc(sizeof(node));
-    temp->color = RBT_RED; //Yeni düğüm KIRMIZI
+    temp->color = RED; //Yeni düğüm KIRMIZI
     temp->data = data;
     temp->parent = iterParent; // yeni düğümünün parent'ı iterin parentı yani NULL olan yaprağın atası
     temp->left = NULL;
@@ -371,7 +371,7 @@ void insert_float(node **rootAdres, float data)
 
 node* init(int data){
         node* root = (node *)malloc(sizeof(node));
-        root->color = RBT_BLACK;
+        root->color = BLACK;
         root->data = data;
         root->left = NULL;
         root->right = NULL;
@@ -397,45 +397,45 @@ void fix_delete(node **rootAdress, node *x)
         x=leftMax;
     }
     */
-    while (x != root && x->color == RBT_BLACK)
+    while (x != root && x->color == BLACK)
     {
         if (x == x->parent->left)
         {
             perror("fix_delete->if\n");
             s = x->parent->right;
-            if (s->color == RBT_RED)
+            if (s->color == RED)
             {
                 //case 3.1
                 perror("fix_delete->if->if\n");
-                s->color = RBT_BLACK;
-                x->parent->color = RBT_RED;
+                s->color = BLACK;
+                x->parent->color = RED;
                 leftRotate(rootAdress, x->parent);
                 s = x->parent->right;
             }
 
-            if (s->left->color == RBT_BLACK && s->right->color == RBT_BLACK)
+            if (s->left->color == BLACK && s->right->color == BLACK)
             {
                 //case 3.2
                 perror("fix_delete->if->if2\n");
-                s->color = RBT_RED;
+                s->color = RED;
                 x = x->parent;
             }
             else
             {
-                if (s->right->color == RBT_BLACK)
+                if (s->right->color == BLACK)
                 {
                     // case 3.3
                     perror("fix_delete->else->if\n");
-                    s->left->color = RBT_BLACK;
-                    s->color = RBT_RED;
+                    s->left->color = BLACK;
+                    s->color = RED;
                     rightRotate(rootAdress, s);
                     s = x->parent->right;
                 }
                 //case 3.4
                 perror("fix_delete->if->else->case3.4\n");
                 s->color = x->parent->color;
-                x->parent->color = RBT_BLACK;
-                s->right->color = RBT_BLACK;
+                x->parent->color = BLACK;
+                s->right->color = BLACK;
                 leftRotate(rootAdress, x->parent);
                 x = root;
             }
@@ -444,45 +444,45 @@ void fix_delete(node **rootAdress, node *x)
         {
             perror("fix_delete->else\n");
             s = x->parent->left;
-            if (s->color == RBT_RED)
+            if (s->color == RED)
             {
                 //case 3.1
                 perror("fix_delete->else->if\n");
-                s->color = RBT_BLACK;
-                x->parent->color = RBT_RED;
+                s->color = BLACK;
+                x->parent->color = RED;
                 rightRotate(rootAdress, x->parent);
                 s = x->parent->left;
             }
 
-            if (s->right->color == RBT_BLACK && s->right->color == RBT_BLACK)
+            if (s->right->color == BLACK && s->right->color == BLACK)
             {
                 // case 3.2
                 perror("fix_delete->else->if2\n");
-                s->color = RBT_RED;
+                s->color = RED;
                 x = x->parent;
             }
             else
             {
-                if (s->left->color == RBT_BLACK)
+                if (s->left->color == BLACK)
                 {
                     // case 3.3
                     perror("fix_delete->else->else\n");
-                    s->right->color = RBT_BLACK;
-                    s->color = RBT_RED;
+                    s->right->color = BLACK;
+                    s->color = RED;
                     leftRotate(rootAdress, s);
                     s = x->parent->left;
                 }
                 //case 3.4
                 perror("fix_delete->else->case3.4\n");
                 s->color = x->parent->color;
-                x->parent->color = RBT_BLACK;
-                s->left->color = RBT_BLACK;
+                x->parent->color = BLACK;
+                s->left->color = BLACK;
                 rightRotate(rootAdress, x->parent);
                 x = root;
             }
         }
     }
-    x->color = RBT_BLACK;
+    x->color = BLACK;
 }
 void delete(node **rootAdress, int key)
 {
@@ -568,7 +568,7 @@ void delete(node **rootAdress, int key)
     }
     
 */
-    if (y_orginal_color == RBT_BLACK)
+    if (y_orginal_color == BLACK)
     {
         //printf("fix delete öncesi\n");
         fix_delete(rootAdress, x);
@@ -620,22 +620,22 @@ void fix_insert2(node* root, node *child)
     */
     if (child == root || child->parent == NULL)
     {
-        root->color = RBT_BLACK;
+        root->color = BLACK;
         return;
     }
     if (child->parent->parent == NULL)
         return;
 
-    while (child->parent->color == RBT_RED)
+    while (child->parent->color == RED)
     {
         if (child->parent == child->parent->parent->right)
         {
             uncle = child->parent->parent->left;
-            if (uncle != NULL && uncle->color == RBT_RED)
+            if (uncle != NULL && uncle->color == RED)
             {
-                uncle->color = RBT_BLACK;
-                child->parent->color = RBT_BLACK;
-                child->parent->parent->color = RBT_RED;
+                uncle->color = BLACK;
+                child->parent->color = BLACK;
+                child->parent->parent->color = RED;
                 child = child->parent->parent;
             }
             else
@@ -645,19 +645,19 @@ void fix_insert2(node* root, node *child)
                     child = child->parent;
                     rightRotate2(root, child);
                 }
-                child->parent->color = RBT_BLACK;
-                child->parent->parent->color = RBT_RED;
+                child->parent->color = BLACK;
+                child->parent->parent->color = RED;
                 leftRotate2(root, child->parent->parent);
             }
         }
         else
         {
             uncle = child->parent->parent->right;
-            if (uncle != NULL && uncle->color == RBT_RED)
+            if (uncle != NULL && uncle->color == RED)
             {
-                uncle->color = RBT_BLACK;
-                child->parent->color = RBT_BLACK;
-                child->parent->parent->color = RBT_RED;
+                uncle->color = BLACK;
+                child->parent->color = BLACK;
+                child->parent->parent->color = RED;
                 child = child->parent->parent;
             }
             else
@@ -667,8 +667,8 @@ void fix_insert2(node* root, node *child)
                     child = child->parent;
                     leftRotate2(root, child);
                 }
-                child->parent->color = RBT_BLACK;
-                child->parent->parent->color = RBT_RED;
+                child->parent->color = BLACK;
+                child->parent->parent->color = RED;
                 rightRotate2(root, child->parent->parent);
             }
         }
@@ -677,7 +677,7 @@ void fix_insert2(node* root, node *child)
             break;
         }
     }
-    root->color = RBT_BLACK;
+    root->color = BLACK;
 }
 void insert2(node* root, int data)
 { //!Geri dönüşü void olan bir ekleme fonksyonu
@@ -694,7 +694,7 @@ void insert2(node* root, int data)
     }
     //Create New Node
     node *temp = (node *)malloc(sizeof(node));
-    temp->color = RBT_RED; //Yeni düğüm KIRMIZI
+    temp->color = RED; //Yeni düğüm KIRMIZI
     temp->data = data;
     temp->parent = iterParent; // yeni düğümünün parent'ı iterin parentı yani NULL olan yaprağın atası
     temp->left = NULL;

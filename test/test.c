@@ -5,7 +5,7 @@
 int main(int argc, char const *argv[])
 {
     node* root = (node *)malloc(sizeof(node));
-    root->color = 0;
+    root->color = BLACK;
     root->data = 15;
     root->left = NULL;
     root->right = NULL;
