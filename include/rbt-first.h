@@ -1,7 +1,7 @@
 #if !defined(__RB__)
 #define __RB__
 
-enum COLOR { RED, BLACK };
+enum COLOR {BLACK, RED};
 
 typedef struct Node{
     int data;
