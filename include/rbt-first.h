@@ -117,11 +117,11 @@ void right_rotate_double(node_d* root, node_d* x);
 void right_rotate_str(node_s* root, node_s* x);
 
 
-node* delete(node* root, int key);
 
 int minimum(node* root);
 int maximum(node* root);
 
+//node* delete(node* root, int key);
 
 int is_there(node* root, int data);
 

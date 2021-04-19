@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include "rbt-first.h"
 
 
@@ -177,6 +178,8 @@ int minimum(node* root){
 int maximum(node* root){
     return maximum_node(root)->data;
 }
+
+
 node* find_node(node* root, int data){
     if (root == NULL)
         return NULL;
@@ -225,7 +228,6 @@ void post_order_travelsal_int(node *root)
     post_order_travelsal_int(root->right);
     printf("%d [%c] ", root->data, root->color == RED ? 'R':'B'); //a > b ? a : b;
 }
-//float
 void in_order_travelsal_float(node_f *root)
 {
     if (root == NULL)
@@ -234,7 +236,6 @@ void in_order_travelsal_float(node_f *root)
     printf("%.2f [%c] ", root->data, root->color == RED ? 'R':'B'); //a > b ? a : b;
     in_order_travelsal_float(root->right);
 }
-//double
 void in_order_travelsal_double(node_d *root)
 {
     if (root == NULL)
@@ -243,7 +244,6 @@ void in_order_travelsal_double(node_d *root)
     printf("%.2F [%c] ", root->data, root->color == RED ? 'R':'B'); //a > b ? a : b;
     in_order_travelsal_double(root->right);
 }
-//string
 void in_order_travelsal_string(node_s *root)
 {
     if (root == NULL)
@@ -675,7 +675,7 @@ void insert_str(node_s* root, char* data)
     while (iter != NULL)
     {
         iterParent = iter; //iterin Parent'ını tutmak parent atamasında ve gelen datayı yerleştirmede işe yarayacak
-        if (data > iter->data)
+        if (strcmp(data, iter->data))
             iter = iter->right;
         else
             iter = iter->left;
@@ -689,7 +689,7 @@ void insert_str(node_s* root, char* data)
     temp->right = NULL;
 
     //iter NULL'idi ve yeni düğüm iterin parent'ının altına eklenecekti bunun nereye ekleneceğini buluyoruz
-    if (data > iterParent->data)
+    if (strcmp(data, iterParent->data))
         iterParent->right = temp;
     else
         iterParent->left = temp;
@@ -705,6 +705,7 @@ void insert_str(node_s* root, char* data)
 
 
 //!Silme işlemi
+/*
 void fix_delete(node *root, node *x)
 { //TODO: x NULL geldiğinde hata oluyor bu durumu değerlendir
     node *s;
@@ -720,7 +721,7 @@ void fix_delete(node *root, node *x)
         leftMax->parent = NULL;
         x=leftMax;
     }
-    */
+    *//*
     while (x != root && x->color == BLACK)
     {
         if (x == x->parent->left)
@@ -894,7 +895,7 @@ node* delete(node *root, int key)
     }
     return root;
 }
-
+*/
 
 //!DENEMELER
 void left_rotate2(node* root, node *x)

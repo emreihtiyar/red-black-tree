@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "rbt-first.h"
 
 int main(int argc, char const *argv[])
@@ -55,12 +56,31 @@ int main(int argc, char const *argv[])
     printf("\n");
 
     printf("----STRING----\n");
-    node_s* root_s = init("hatice");
-    insert(root_s, "emre");
-    insert(root_s, "arab");
+    node_s* root_s = init("ha");
+    insert(root_s, "em");
+    insert(root_s, "za");
+    insert(root_s, "aa");
+    insert(root_s, "be");
+    insert(root_s, "ke");
     printf("root_s: %s\n",root_s->data);
     in_order_travelsal(root_s);
     printf("\n");
 
+
+    
+    switch (strcmp("Emre", "Amre"))
+    {
+    case 0:
+        printf("Eşit.\n");
+        break;
+
+    case 1:
+        printf("1.Daha büyük.\n");
+        break;
+
+    case -1:
+        printf("2.Daha büyük.\n");
+        break;
+    }
     return 0;
 }
