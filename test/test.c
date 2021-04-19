@@ -42,9 +42,25 @@ int main(int argc, char const *argv[])
     post_order_travelsal(root);//Sol Sağ Orta
     printf("\n");
 
-    node_d* tree_str = init(3.33);
-    printf("treee_str: %F\n", tree_str->data);
+    printf("----DOUBLE----\n");
+    node_d* root_d = init(3.32);
+    insert(root_d, 2.34);
+    insert(root_d, 4.55);
+    insert(root_d, 2.25);
+    insert(root_d, 4.75);
+    insert(root_d, 8.14);
+    insert(root_d, 14.87);
+    printf("root_d: %f\n",root_d->data);
+    in_order_travelsal(root_d);
+    printf("\n");
 
+    printf("----STRING----\n");
+    node_s* root_s = init("hatice");
+    insert(root_s, "emre");
+    insert(root_s, "arab");
+    printf("root_s: %s\n",root_s->data);
+    in_order_travelsal(root_s);
+    printf("\n");
 
     return 0;
 }
