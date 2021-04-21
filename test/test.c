@@ -24,6 +24,7 @@ int main(int argc, char const *argv[])
     printf("\n");
 
     printf("%d is there in tree: %s\n",0, is_there(root, 0) ? "Var":"Yok");
+    printf("%d is there in tree: %s\n",31, is_there(root, 31) ? "Var":"Yok");
 
     printf("root: %d\n",root->data);
 
@@ -52,9 +53,10 @@ int main(int argc, char const *argv[])
 
     printf("double minimum: %F\n", min(root_d));
     printf("double maximum: %F\n", max(root_d));
-    printf("%F is there in tree: %s\n",3.21, is_there(root, 3.21) ? "Var":"Yok");
+    printf("%.2F is there in tree: %s\n",3.21, is_there(root_d, 3.21) ? "Var":"Yok");
+    printf("%.2F is there in tree: %s\n",3.32, is_there(root_d, 3.32) ? "Var":"Yok");
 
-    
+
     //TODO: min veya max sonucu tek düğüm olduğunda hata veriyor (fix delete'e girilen x değeri NULL olursa).
     //TODO:Silinecek düğümün sağ alt ağacında tek eleman varsa veya hiç eleman yoksa (NULL) hata veriyor.
     //delete(&root, 12); //Doğru çalışıyor.
@@ -63,7 +65,7 @@ int main(int argc, char const *argv[])
 
     //root = delete(root, 15); //root'da doğru çalışıyor
 
-/*//! String işlemlerinde hata var, yeni eklendiğinde sadece root ve en son kalıyor
+//! String işlemlerinde hata var, yeni eklendiğinde sadece root ve en son kalıyor
 //TODO: Yukarıdaki hata sanırım döndürme fonksyonundaki root ataması nedeniyle oluşuyor
 
     printf("----STRING----\n");
@@ -75,11 +77,15 @@ int main(int argc, char const *argv[])
     insert(root_s, "na");
     insert(root_s, "za");
     printf("root_s: %s\n",root_s->data);
+    printf("root_s->right: %s\n",root_s->right->data);
     in_order_travelsal(root_s);
     printf("\n");
+    printf("string minimum: %s\n", min(root_s));
+    printf("string maximum: %s\n", max(root_s));
+    printf("%s is there in tree: %s\n", "mahmut", is_there(root_s, "mahmut") ? "Var":"Yok");
+    printf("%s is there in tree: %s\n", "za", is_there(root_s, "za") ? "Var":"Yok");
 
-
-    
+    /*
     switch (strcmp("Emre", "Amre"))
     {
     case 0:

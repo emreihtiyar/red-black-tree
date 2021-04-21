@@ -273,9 +273,9 @@ node_d* find_node_double(node_d* root, double data){
 node_s* find_node_str(node_s* root, char* data){
     if (root == NULL)
         return NULL;
-    else if (root->data == data)
+    else if (strcmp(root->data, data) == 0) //root->data == data
         return root;
-    else if (data > root->data)
+    else if (strcmp(data, root->data) > 0)//data > root->data
         return find_node_str(root->right, data);
     else
         return find_node_str(root->left, data);
@@ -780,7 +780,7 @@ void insert_str(node_s* root, char* data)
     while (iter != NULL)
     {
         iterParent = iter; //iterin Parent'ını tutmak parent atamasında ve gelen datayı yerleştirmede işe yarayacak
-        if (strcmp(data, iter->data)) //büyükse
+        if (strcmp(data, iter->data) > 0) //büyükse
             iter = iter->right;
         else  //küçükse
             iter = iter->left;
@@ -794,7 +794,7 @@ void insert_str(node_s* root, char* data)
     temp->right = NULL;
 
     //iter NULL'idi ve yeni düğüm iterin parent'ının altına eklenecekti bunun nereye ekleneceğini buluyoruz
-    if (strcmp(data, iterParent->data))
+    if (strcmp(data, iterParent->data) > 0)
         iterParent->right = temp;
     else
         iterParent->left = temp;
