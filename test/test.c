@@ -32,7 +32,7 @@ int main(int argc, char const *argv[])
     //delete(&root, 11); //Doğru çalışıyor.
     //delete(&root, 12); //Doğru çalışıyor.
 
-    root = delete(root, 15); //root'da doğru çalışıyor
+    //root = delete(root, 15); //root'da doğru çalışıyor
 
     printf("root: %d\n",root->data);
 

@@ -668,7 +668,7 @@ void insert_double(node_d* root, double data)
     fix_insert_double(root, temp);
 }
 void insert_str(node_s* root, char* data)
-{ //!Geri dönüşü void olan bir ekleme fonksyonu
+{
     node_s* iterParent = NULL;
     node_s* iter = root;
     //iter NULL oluncaya kadar devam et bu sayede gelen datayı yerleştireceğimiz yeri buluruz
@@ -710,7 +710,7 @@ void fix_delete(node *root, node *x)
 { //TODO: x NULL geldiğinde hata oluyor bu durumu değerlendir
     node *s;
     //printf("fix_delete \n");
-    /*
+    //?------------------------------------------Bu aralıklar commnetli olmalı----------------------------------
     if (x == root)
     {
         node* leftMax = maximum_node(x->left);
@@ -721,7 +721,7 @@ void fix_delete(node *root, node *x)
         leftMax->parent = NULL;
         x=leftMax;
     }
-    *//*
+    //?------------------------------------------Bu aralıklar commnetli olmalı----------------------------------
     while (x != root && x->color == BLACK)
     {
         if (x == x->parent->left)
@@ -879,14 +879,14 @@ node* delete(node *root, int key)
     }
 
     free(z);
-/*
+    //?------------------------------------------Bu aralıklar commnetli olmalı----------------------------------
     if (x == NULL)
     {
         fix_delete(rootAdress, y);
         return;
     }
     
-*/
+    //?------------------------------------------Bu aralıklar commnetli olmalı----------------------------------
     if (y_orginal_color == BLACK)
     {
         //printf("fix delete öncesi\n");
@@ -896,39 +896,3 @@ node* delete(node *root, int key)
     return root;
 }
 */
-
-//!DENEMELER
-void left_rotate2(node* root, node *x)
-{ //TODO: İsmi LEFT olmasına rağmen anlatım biraz garip bu nedenle kullanılan yerleri bir karşılaştır.
-    node *y = x->right;
-    x->right = y->left;
-    if (y->left != NULL)
-        y->left->parent = x;
-    y->parent = x->parent;
-    if (x->parent == NULL)
-        root = y; //! DETAYLI DÜŞÜN
-    else if (x == x->parent->left)
-        x->parent->left = y;
-    else
-        x->parent->right = y;
-    y->left = x;
-    x->parent = y;
-}
-void right_rotate2(node* root, node *x)
-{
-    node *y = x->left;
-    x->left = y->right;
-    if (y->right != NULL)
-        y->right->parent = x;
-    y->parent = x->parent;
-
-    if (x->parent == NULL)
-        root = y; //! DETAYLI DÜŞÜN
-    else if (x == x->parent->right)
-        x->parent->right = y;
-    else
-        x->parent->left = y;
-
-    y->right = x;
-    x->parent = y;
-}

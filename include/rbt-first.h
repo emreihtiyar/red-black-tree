@@ -90,7 +90,7 @@ void pre_order_travelsal_int(node* root);
 void post_order_travelsal_int(node* root);
 
 
-
+/*
 //! Rotates Macro
 #define left_rotate(root, x) _Generic((root), \
     node*: left_rotate_int, \
@@ -115,7 +115,7 @@ void right_rotate_int(node* root, node* x);
 void right_rotate_float(node_f* root, node_f* x);
 void right_rotate_double(node_d* root, node_d* x);
 void right_rotate_str(node_s* root, node_s* x);
-
+*/
 
 
 int minimum(node* root);
