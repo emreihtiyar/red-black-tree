@@ -89,6 +89,42 @@ void in_order_travelsal_string(node_s* root);
 void pre_order_travelsal_int(node* root);
 void post_order_travelsal_int(node* root);
 
+#define min(root) _Generic((root), \
+    node*: minimum_int, \
+    node_f*: minimum_float, \
+    node_d*: minimum_double, \
+    node_s*: minimum_str \
+)(root)
+
+int minimum_int(node* root);
+float minimum_float(node_f* root);
+double minimum_double(node_d* root);
+char* minimum_str(node_s* root);
+
+#define max(root) _Generic((root), \
+    node*: maximum_int, \
+    node_f*: maximum_float, \
+    node_d*: maximum_double, \
+    node_s*: maximum_str \
+)(root)
+
+int maximum_int(node* root);
+float maximum_float(node_f* root);
+double maximum_double(node_d* root);
+char* maximum_str(node_s* root);
+
+
+#define is_there(root, data) _Generic((root), \
+    node*: is_there_int, \
+    node_f*: is_there_float, \
+    node_d*: is_there_double, \
+    node_s*: is_there_str \
+)(root,data)
+int is_there_int(node* root, int data);
+int is_there_float(node_f* root, float data);
+int is_there_double(node_d* root, double data);
+int is_there_str(node_s* root, char* data);
+
 
 /*
 //! Rotates Macro
@@ -117,12 +153,6 @@ void right_rotate_double(node_d* root, node_d* x);
 void right_rotate_str(node_s* root, node_s* x);
 */
 
-
-int minimum(node* root);
-int maximum(node* root);
-
 //node* delete(node* root, int key);
-
-int is_there(node* root, int data);
 
 #endif // __RB__

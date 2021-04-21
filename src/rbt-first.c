@@ -146,18 +146,86 @@ void right_rotate_str(node_s* root, node_s* x)
 }
 
 
-node* minimum_node(node *node)
+node* minimum_node_int(node* root)
 {
-    while (node->left != NULL)
-        node = node->left;
-    return node;
+    while (root->left != NULL)
+        root = root->left;
+    return root;
 }
-node* maximum_node(node *node)
+node_f* minimum_node_float(node_f* root)
 {
-    while (node->right != NULL)
-        node = node->right;
-    return node;
+    while (root->left != NULL)
+        root = root->left;
+    return root;
 }
+node_d* minimum_node_double(node_d *root)
+{
+    while (root->left != NULL)
+        root = root->left;
+    return root;
+}
+node_s* minimum_node_str(node_s *root)
+{
+    while (root->left != NULL)
+        root = root->left;
+    return root;
+}
+
+
+node* maximum_node_int(node* root)
+{
+    while (root->right != NULL)
+        root = root->right;
+    return root;
+}
+node_f* maximum_node_float(node_f* root)
+{
+    while (root->right != NULL)
+        root = root->right;
+    return root;
+}
+node_d* maximum_node_double(node_d* root)
+{
+    while (root->right != NULL)
+        root = root->right;
+    return root;
+}
+node_s* maximum_node_str(node_s* root)
+{
+    while (root->right != NULL)
+        root = root->right;
+    return root;
+}
+
+
+int minimum_int(node* root){
+    return minimum_node_int(root)->data;
+}
+float minimum_float(node_f* root){
+    return minimum_node_float(root)->data;
+}
+double minimum_double(node_d* root){
+    return minimum_node_double(root)->data;
+}
+char* minimum_str(node_s* root){
+    return minimum_node_str(root)->data;
+}
+
+int maximum_int(node* root){
+    return maximum_node_int(root)->data;
+}
+float maximum_float(node_f* root){
+    return maximum_node_float(root)->data;
+}
+double maximum_double(node_d* root){
+    return maximum_node_double(root)->data;
+}
+char* maximum_str(node_s* root){
+    return maximum_node_str(root)->data;
+}
+
+
+
 node* transplant(node *root, node *u, node *v)
 {
     if (u->parent == NULL)
@@ -172,30 +240,67 @@ node* transplant(node *root, node *u, node *v)
     return root;
 }
 
-int minimum(node* root){
-    return minimum_node(root)->data;
-}
-int maximum(node* root){
-    return maximum_node(root)->data;
-}
-
-
-node* find_node(node* root, int data){
+node* find_node_int(node* root, int data){
     if (root == NULL)
         return NULL;
     else if (root->data == data)
         return root;
     else if (data > root->data)
-        return find_node(root->right, data);
+        return find_node_int(root->right, data);
     else
-        return find_node(root->left, data);
+        return find_node_int(root->left, data);
 }
-int is_there(node* root, int data)
-{
-    // find node NULL döndüyse yani bulamadı ise NULL && 1 -> 0 döndürür, eğer bulduysa yani null dışında birey döndüyse all && 1 ->1 döndürür. 
-    return find_node(root, data) && 1;
+node_f* find_node_float(node_f* root, float data){
+    if (root == NULL)
+        return NULL;
+    else if (root->data == data)
+        return root;
+    else if (data > root->data)
+        return find_node_float(root->right, data);
+    else
+        return find_node_float(root->left, data);
+}
+node_d* find_node_double(node_d* root, double data){
+    if (root == NULL)
+        return NULL;
+    else if (root->data == data)
+        return root;
+    else if (data > root->data)
+        return find_node_double(root->right, data);
+    else
+        return find_node_double(root->left, data);
+}
+node_s* find_node_str(node_s* root, char* data){
+    if (root == NULL)
+        return NULL;
+    else if (root->data == data)
+        return root;
+    else if (data > root->data)
+        return find_node_str(root->right, data);
+    else
+        return find_node_str(root->left, data);
 }
 
+int is_there_int(node* root, int data)
+{
+    // find node NULL döndüyse yani bulamadı ise NULL && 1 -> 0 döndürür, eğer bulduysa yani null dışında birey döndüyse all && 1 ->1 döndürür. 
+    return find_node_int(root, data) && 1;
+}
+int is_there_float(node_f* root, float data)
+{
+    // find node NULL döndüyse yani bulamadı ise NULL && 1 -> 0 döndürür, eğer bulduysa yani null dışında birey döndüyse all && 1 ->1 döndürür. 
+    return find_node_float(root, data) && 1;
+}
+int is_there_double(node_d* root, double data)
+{
+    // find node NULL döndüyse yani bulamadı ise NULL && 1 -> 0 döndürür, eğer bulduysa yani null dışında birey döndüyse all && 1 ->1 döndürür. 
+    return find_node_double(root, data) && 1;
+}
+int is_there_str(node_s* root, char* data)
+{
+    // find node NULL döndüyse yani bulamadı ise NULL && 1 -> 0 döndürür, eğer bulduysa yani null dışında birey döndüyse all && 1 ->1 döndürür. 
+    return find_node_str(root, data) && 1;
+}
 
 
 //! Veri tiplerine bağlı dolaşımlar
@@ -668,16 +773,16 @@ void insert_double(node_d* root, double data)
     fix_insert_double(root, temp);
 }
 void insert_str(node_s* root, char* data)
-{
+{ //!Geri dönüşü void olan bir ekleme fonksyonu
     node_s* iterParent = NULL;
     node_s* iter = root;
     //iter NULL oluncaya kadar devam et bu sayede gelen datayı yerleştireceğimiz yeri buluruz
     while (iter != NULL)
     {
         iterParent = iter; //iterin Parent'ını tutmak parent atamasında ve gelen datayı yerleştirmede işe yarayacak
-        if (strcmp(data, iter->data))
+        if (strcmp(data, iter->data)) //büyükse
             iter = iter->right;
-        else
+        else  //küçükse
             iter = iter->left;
     }
     //Create New Node
