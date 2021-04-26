@@ -71,16 +71,6 @@ void insert_str(node_s* root, char* data);
     default: travelsal_error \
 )(root)
 
-#define pre_order_travelsal(root) _Generic((root->data), \
-    int: pre_order_travelsal_int, \
-    default: travelsal_error \
-)(root)
-
-#define post_order_travelsal(root) _Generic((root->data), \
-    int: post_order_travelsal_int, \
-    default: travelsal_error \
-)(root)
-
 void travelsal_error(node* root);
 void in_order_travelsal_int(node* root);
 void in_order_travelsal_float(node_f* root);
@@ -95,7 +85,6 @@ void post_order_travelsal_int(node* root);
     node_d*: minimum_double, \
     node_s*: minimum_str \
 )(root)
-
 int minimum_int(node* root);
 float minimum_float(node_f* root);
 double minimum_double(node_d* root);
@@ -107,7 +96,6 @@ char* minimum_str(node_s* root);
     node_d*: maximum_double, \
     node_s*: maximum_str \
 )(root)
-
 int maximum_int(node* root);
 float maximum_float(node_f* root);
 double maximum_double(node_d* root);
@@ -126,32 +114,6 @@ int is_there_double(node_d* root, double data);
 int is_there_str(node_s* root, char* data);
 
 
-/*
-//! Rotates Macro
-#define left_rotate(root, x) _Generic((root), \
-    node*: left_rotate_int, \
-    node_f*: left_rotate_float, \
-    node_d*: left_rotate_double, \
-    node_s*: left_rotate_str \
-)(root, x)
-
-void left_rotate_int(node* root, node* x);
-void left_rotate_float(node_f* root, node_f* x);
-void left_rotate_double(node_d* root, node_d* x);
-void left_rotate_str(node_s* root, node_s* x);
-
-#define right_rotate(root, x) _Generic((root), \
-    node*: right_rotate_int, \
-    node_f*: right_rotate_float, \
-    node_d*: right_rotate_double, \
-    node_s*: right_rotate_str \
-)(root, x)
-
-void right_rotate_int(node* root, node* x);
-void right_rotate_float(node_f* root, node_f* x);
-void right_rotate_double(node_d* root, node_d* x);
-void right_rotate_str(node_s* root, node_s* x);
-*/
 
 //node* delete(node* root, int key);
 

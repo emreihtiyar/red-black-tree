@@ -18,22 +18,13 @@ int main(int argc, char const *argv[])
     printf("root: %d\n",root->data);
     in_order_travelsal(root);// Sol Root Sağ 
     printf("\n");
-    pre_order_travelsal(root);// Root Sağ Sol
+    pre_order_travelsal_int(root);// Root Sağ Sol
     printf("\n");
-    post_order_travelsal(root);//Sol Sağ Orta
+    post_order_travelsal_int(root);//Sol Sağ Orta
     printf("\n");
 
     printf("%d is there in tree: %s\n",0, is_there(root, 0) ? "Var":"Yok");
-    printf("%d is there in tree: %s\n",31, is_there(root, 31) ? "Var":"Yok");
-
-    printf("root: %d\n",root->data);
-
-    in_order_travelsal(root);// Sol Root Sağ 
-    printf("\n");
-    pre_order_travelsal(root);// Root Sağ Sol
-    printf("\n");
-    post_order_travelsal(root);//Sol Sağ Orta
-    printf("\n");
+    printf("%d is there in tree: %s\n",142, is_there(root, 31) ? "Var":"Yok");
 
     printf("int minimum: %d\n", min(root));
     printf("int maximum: %d\n", max(root));

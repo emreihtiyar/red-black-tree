@@ -225,21 +225,6 @@ char* maximum_str(node_s* root){
 }
 
 
-
-node* transplant(node *root, node *u, node *v)
-{
-    if (u->parent == NULL)
-        root = v;
-    else if (u == u->parent->left)
-        u->parent->left = v;
-    else if (u == u->parent->right)
-        u->parent->right = v;
-    if (v != NULL)
-        v->parent = u->parent;
-
-    return root;
-}
-
 node* find_node_int(node* root, int data){
     if (root == NULL)
         return NULL;
@@ -308,7 +293,6 @@ void travelsal_error(node* root){
     printf("Hatalı Bir veri tipi yada ağaç olmayan bir yapı girdisinde bulundunuz");
 }
 
-// int
 void in_order_travelsal_int(node *root)
 {
     if (root == NULL)
@@ -396,6 +380,7 @@ node_s* init_string(char* data){
         root->parent = NULL;
         return root;
 }
+
 
 //! Eleman ekleme
 void fix_insert_int(node* root,node* child)
@@ -667,6 +652,7 @@ void fix_insert_str(node_s* root, node_s* child)
     root->color = BLACK;
 }
 
+
 void insert_int(node* root, int data)
 { //!Geri dönüşü void olan bir ekleme fonksyonu
     node *iterParent = NULL;
@@ -811,6 +797,21 @@ void insert_str(node_s* root, char* data)
 
 //!Silme işlemi
 /*
+node* transplant(node *root, node *u, node *v)
+{
+    if (u->parent == NULL)
+        root = v;
+    else if (u == u->parent->left)
+        u->parent->left = v;
+    else if (u == u->parent->right)
+        u->parent->right = v;
+    if (v != NULL)
+        v->parent = u->parent;
+
+    return root;
+}
+
+
 void fix_delete(node *root, node *x)
 { //TODO: x NULL geldiğinde hata oluyor bu durumu değerlendir
     node *s;
