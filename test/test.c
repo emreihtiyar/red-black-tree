@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "rbt-first.h"
+#include "rbt.h"
 
 int main(int argc, char const *argv[])
 {
+//!------------------------------------------------------ İNT ----------------------------------------------------
     node* root = init(15); 
     insert(root, 20);
     insert(root, 9);
@@ -18,18 +19,32 @@ int main(int argc, char const *argv[])
     printf("root: %d\n",root->data);
     in_order_travelsal(root);// Sol Root Sağ 
     printf("\n");
-    pre_order_travelsal_int(root);// Root Sağ Sol
-    printf("\n");
-    post_order_travelsal_int(root);//Sol Sağ Orta
-    printf("\n");
 
     printf("%d is there in tree: %s\n",0, is_there(root, 0) ? "Var":"Yok");
-    printf("%d is there in tree: %s\n",142, is_there(root, 31) ? "Var":"Yok");
+    printf("%d is there in tree: %s\n",142, is_there(root, 142) ? "Var":"Yok");
 
     printf("int minimum: %d\n", min(root));
     printf("int maximum: %d\n", max(root));
 
+//!------------------------------------------------------ FLOAT ----------------------------------------------------
+    printf("----FLOAT----\n");
+    node_f* root_f = init(3.56f);
+    insert(root_f, 1.46f);
+    insert(root_f, 7.14f);
+    insert(root_f, 19.75f);
+    insert(root_f, 2.35f);
+    insert(root_f, 2.737f);
+    insert(root_f, 91.63f);
+    printf("root_f: %f\n",root_f->data);
+    in_order_travelsal(root_f);
+    printf("\n");
 
+    printf("double minimum: %f\n", min(root_f));
+    printf("double maximum: %f\n", max(root_f));
+    printf("%.2f is there in tree: %s\n",3.21f, is_there(root_f, 3.21f) ? "Var":"Yok");
+    printf("%.2f is there in tree: %s\n",3.32f, is_there(root_f, 3.32f) ? "Var":"Yok");
+
+//!------------------------------------------------------ DOUBLE ----------------------------------------------------
     printf("----DOUBLE----\n");
     node_d* root_d = init(3.32);
     insert(root_d, 2.34);
@@ -47,18 +62,7 @@ int main(int argc, char const *argv[])
     printf("%.2F is there in tree: %s\n",3.21, is_there(root_d, 3.21) ? "Var":"Yok");
     printf("%.2F is there in tree: %s\n",3.32, is_there(root_d, 3.32) ? "Var":"Yok");
 
-
-    //TODO: min veya max sonucu tek düğüm olduğunda hata veriyor (fix delete'e girilen x değeri NULL olursa).
-    //TODO:Silinecek düğümün sağ alt ağacında tek eleman varsa veya hiç eleman yoksa (NULL) hata veriyor.
-    //delete(&root, 12); //Doğru çalışıyor.
-    //delete(&root, 11); //Doğru çalışıyor.
-    //delete(&root, 12); //Doğru çalışıyor.
-
-    //root = delete(root, 15); //root'da doğru çalışıyor
-
-//! String işlemlerinde hata var, yeni eklendiğinde sadece root ve en son kalıyor
-//TODO: Yukarıdaki hata sanırım döndürme fonksyonundaki root ataması nedeniyle oluşuyor
-
+//!------------------------------------------------------ STRING ----------------------------------------------------
     printf("----STRING----\n");
     node_s* root_s = init("ha");
     insert(root_s, "da");

@@ -56,7 +56,7 @@ clean:
 	rm -rf $(OBJDIR)
 
 #Opsiyonel kisim
-run: clean all
+run: $(TESTDIR)/test
 	@clear
 	@./$(TOBJS)
 
