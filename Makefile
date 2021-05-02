@@ -1,21 +1,5 @@
-#MAKEFILE YAZIMI GENEL ANLATIMI
-
-#Kurallarin icindeki her islem konsolda teker teker calistirilir eger calismasini gormek istemiyorsak satirin basina `@` sembolu konulur.
-	# echo deneme #ekrana deneme yazdirir
-	# @echo deneme #ekrana deneme yazdirir ama bu satir ekranda gozukmez
-
-# $(degiskenAdi) bu sekilde daha onceden tanimlanan degiskenlere ulasabiliyoruz.
-
-# $< Tanimlanan kuraldaki On kosullu verir (Kullanildigi kuralin ilk on kosulunu)
-# $@ Kullanildigi kuralin adini verir
-# $^ Tanimlanan kuraldaki On kosullu verir (Kullanildigi kuralin tum kosullarini)
-
-# EXAMPLE DOSYASI ICIN MAKEFILE YAZIMI
-
-#Degisken tanimlamalari
 CC = gcc
 
-#-I => 
 CFLAGS = -Wall -Werror -I./include -L./lib
 
 SRCDIR = src
@@ -27,11 +11,8 @@ SRCS = $(wildcard $(SRCDIR)/*.c) # calistirilan klasordeki tum .c uzantili dosya
 OBJS = $(SRCS:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
 TESTS_C =  $(wildcard $(TESTDIR)/*.c)
+TESTS_OUT = $(filter-out $(TESTS_C), $(wildcard $(TESTDIR)/*))
 TOBJS = $(TESTS_C:%.c=%)
-
-#Kural tanimlama | c`deki fonksiyonlara benzer ve all Kurali c`deki main gibidir. herhangi bir kural beliritilmediginde calisir.
-#KuralAdi: Onkosullar
-#	yapilacakIsler
 
 all: $(TOBJS)
 	@echo MAKEFILE COMPLETED
@@ -52,7 +33,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 clean:
 	rm -rf $(LIBDIR)
-	rm  $(TESTDIR)/test 
+	rm  $(TESTS_OUT)
 	rm -rf $(OBJDIR)
 
 #Opsiyonel kisim
@@ -62,3 +43,7 @@ run: $(TESTDIR)/test
 
 debug: all
 	./$(TOBJS)
+
+den: $(TESTDIR)/den_test
+	@clear
+	@./$(TOBJS)

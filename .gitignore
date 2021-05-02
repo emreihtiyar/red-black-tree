@@ -3,9 +3,13 @@ lib
 
 *.o
 *.a
-
 .vscode
 vscode
 .json
 
 test/
+
+#
+src/den.c
+include/den.h
+test/den_test.c
