@@ -13,3 +13,4 @@ test/
 src/den.c
 include/den.h
 test/den_test.c
+.vscode/settings.json
