@@ -1,16 +1,16 @@
-#if !defined(__RB__)
-#define __RB__
+#if !defined(__RBT__)
+#define __RBT__
 
 enum COLOR {BLACK, RED};
 enum TREE_TYPE {T_INT, T_FLOAT, T_DOUBLE, T_STR};
 
-typedef struct Node{
+typedef struct Node_int{
     int data;
     enum COLOR color;
-    struct Node* left;
-    struct Node* right;
-    struct Node* parent;
-} node;
+    struct Node_int* left;
+    struct Node_int* right;
+    struct Node_int* parent;
+} node_i;
 typedef struct Node_float{
     float data;
     enum COLOR color;
@@ -42,7 +42,7 @@ typedef struct Node_string{
     char*: init_string \
 )(data)
 
-node* init_int(int data);
+node_i* init_int(int data);
 node_f* init_float(float data);
 node_d* init_double(double data);
 node_s* init_string(char* data);
@@ -56,7 +56,7 @@ node_s* init_string(char* data);
     char*: insert_str \
 )(root, data)
 
-void insert_int(node* root, int data);
+void insert_int(node_i* root, int data);
 void insert_float(node_f* root, float data);
 void insert_double(node_d* root, double data);
 void insert_str(node_s* root, char* data);
@@ -64,54 +64,54 @@ void insert_str(node_s* root, char* data);
 
 //! Traversal Macro
 #define in_order_travelsal(root) _Generic((root), \
-    node*: in_order_travelsal_int, \
+    node_i*: in_order_travelsal_int, \
     node_f*: in_order_travelsal_float, \
     node_d*: in_order_travelsal_double, \
     node_s*: in_order_travelsal_string, \
     default: travelsal_error \
 )(root)
 
-void travelsal_error(node* root);
-void in_order_travelsal_int(node* root);
+void travelsal_error(node_i* root);
+void in_order_travelsal_int(node_i* root);
 void in_order_travelsal_float(node_f* root);
 void in_order_travelsal_double(node_d* root);
 void in_order_travelsal_string(node_s* root);
-void pre_order_travelsal_int(node* root);
-void post_order_travelsal_int(node* root);
+void pre_order_travelsal_int(node_i* root);
+void post_order_travelsal_int(node_i* root);
 
 #define min(root) _Generic((root), \
-    node*: minimum_int, \
+    node_i*: minimum_int, \
     node_f*: minimum_float, \
     node_d*: minimum_double, \
     node_s*: minimum_str \
 )(root)
-int minimum_int(node* root);
+int minimum_int(node_i* root);
 float minimum_float(node_f* root);
 double minimum_double(node_d* root);
 char* minimum_str(node_s* root);
 
 #define max(root) _Generic((root), \
-    node*: maximum_int, \
+    node_i*: maximum_int, \
     node_f*: maximum_float, \
     node_d*: maximum_double, \
     node_s*: maximum_str \
 )(root)
-int maximum_int(node* root);
+int maximum_int(node_i* root);
 float maximum_float(node_f* root);
 double maximum_double(node_d* root);
 char* maximum_str(node_s* root);
 
 
-#define is_there(root, data) _Generic((root), \
-    node*: is_there_int, \
-    node_f*: is_there_float, \
-    node_d*: is_there_double, \
-    node_s*: is_there_str \
+#define find(root, data) _Generic((root), \
+    node_i*: find_int, \
+    node_f*: find_float, \
+    node_d*: find_double, \
+    node_s*: find_str \
 )(root,data)
-int is_there_int(node* root, int data);
-int is_there_float(node_f* root, float data);
-int is_there_double(node_d* root, double data);
-int is_there_str(node_s* root, char* data);
+int find_int(node_i* root, int data);
+int find_float(node_f* root, float data);
+int find_double(node_d* root, double data);
+int find_str(node_s* root, char* data);
 
 
-#endif // __RB__
+#endif // __RBT__

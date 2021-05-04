@@ -6,16 +6,16 @@
 
 
 //! Yardımcı Fonksiyonlar: Rotate, min, max, min node, min max, transplant, travel 
-
-void left_rotate_int(node* root, node *x)
-{
-    node *y = x->right;
+//! Bu Fonksiyonlardaki gereksiz tekrarları kaldırmalıyız, bu haliyle DRY prensibine uymuyor.
+void left_rotate_int(node_i* root, node_i* x)
+{//node türü ve int değeri için Sola döndürme fonksiyonu
+    node_i* y = x->right;
     x->right = y->left;
     if (y->left != NULL)
         y->left->parent = x;
     y->parent = x->parent;
     if (x->parent == NULL)
-        root = y; //! DETAYLI DÜŞÜN
+        root = y;
     else if (x == x->parent->left)
         x->parent->left = y;
     else
@@ -24,7 +24,7 @@ void left_rotate_int(node* root, node *x)
     x->parent = y;
 }
 void left_rotate_float(node_f* root, node_f* x)
-{
+{//node_F türü ve float değeri için Sola döndürme fonksiyonu
     node_f *y = x->right;
     x->right = y->left;
     if (y->left != NULL)
@@ -40,7 +40,7 @@ void left_rotate_float(node_f* root, node_f* x)
     x->parent = y;
 }
 void left_rotate_double(node_d* root, node_d* x)
-{
+{//node_d türü ve double değeri için Sola döndürme fonksiyonu
     node_d* y = x->right;
     x->right = y->left;
     if (y->left != NULL)
@@ -56,7 +56,7 @@ void left_rotate_double(node_d* root, node_d* x)
     x->parent = y;
 }
 void left_rotate_str(node_s* root, node_s* x)
-{
+{//node_s türü ve string değeri için Sola döndürme fonksiyonu
     node_s* y = x->right;
     x->right = y->left;
     if (y->left != NULL)
@@ -72,9 +72,9 @@ void left_rotate_str(node_s* root, node_s* x)
     x->parent = y;
 }
 
-void right_rotate_int(node* root, node* x)
-{
-    node *y = x->left;
+void right_rotate_int(node_i* root, node_i* x)
+{//node türü ve int değeri için Sağa döndürme fonksiyonu
+    node_i* y = x->left;
     x->left = y->right;
     if (y->right != NULL)
         y->right->parent = x;
@@ -91,7 +91,7 @@ void right_rotate_int(node* root, node* x)
     x->parent = y;
 }
 void right_rotate_float(node_f* root, node_f* x)
-{
+{//node_f türü ve float değeri için Sağa döndürme fonksiyonu
     node_f *y = x->left;
     x->left = y->right;
     if (y->right != NULL)
@@ -109,7 +109,7 @@ void right_rotate_float(node_f* root, node_f* x)
     x->parent = y;
 }
 void right_rotate_double(node_d* root, node_d* x)
-{
+{//node_d türü ve double değeri için Sağa döndürme fonksiyonu
     node_d* y = x->left;
     x->left = y->right;
     if (y->right != NULL)
@@ -127,7 +127,7 @@ void right_rotate_double(node_d* root, node_d* x)
     x->parent = y;
 }
 void right_rotate_str(node_s* root, node_s* x)
-{
+{//node_s türü ve string değeri için Sağa döndürme fonksiyonu
     node_s* y = x->left;
     x->left = y->right;
     if (y->right != NULL)
@@ -146,7 +146,7 @@ void right_rotate_str(node_s* root, node_s* x)
 }
 
 
-node* minimum_node_int(node* root)
+node_i* minimum_node_int(node_i* root)
 {
     while (root->left != NULL)
         root = root->left;
@@ -172,7 +172,7 @@ node_s* minimum_node_str(node_s *root)
 }
 
 
-node* maximum_node_int(node* root)
+node_i* maximum_node_int(node_i* root)
 {
     while (root->right != NULL)
         root = root->right;
@@ -198,34 +198,42 @@ node_s* maximum_node_str(node_s* root)
 }
 
 
-int minimum_int(node* root){
+int minimum_int(node_i* root){
+    printf("%s-> ",__func__);
     return minimum_node_int(root)->data;
 }
 float minimum_float(node_f* root){
+    printf("%s-> ",__func__);
     return minimum_node_float(root)->data;
 }
 double minimum_double(node_d* root){
+    printf("%s-> ",__func__);
     return minimum_node_double(root)->data;
 }
 char* minimum_str(node_s* root){
+    printf("%s-> ",__func__);
     return minimum_node_str(root)->data;
 }
 
-int maximum_int(node* root){
+int maximum_int(node_i* root){
+    printf("%s-> ",__func__);
     return maximum_node_int(root)->data;
 }
 float maximum_float(node_f* root){
+    printf("%s-> ",__func__);
     return maximum_node_float(root)->data;
 }
 double maximum_double(node_d* root){
+    printf("%s-> ",__func__);
     return maximum_node_double(root)->data;
 }
 char* maximum_str(node_s* root){
+    printf("%s-> ",__func__);
     return maximum_node_str(root)->data;
 }
 
 
-node* find_node_int(node* root, int data){
+node_i* find_node_int(node_i* root, int data){
     if (root == NULL)
         return NULL;
     else if (root->data == data)
@@ -266,34 +274,38 @@ node_s* find_node_str(node_s* root, char* data){
         return find_node_str(root->left, data);
 }
 
-int is_there_int(node* root, int data)
+int find_int(node_i* root, int data)
 {
+    printf("%s-> ",__func__);
     // find node NULL döndüyse yani bulamadı ise NULL && 1 -> 0 döndürür, eğer bulduysa yani null dışında birey döndüyse all && 1 ->1 döndürür. 
     return find_node_int(root, data) && 1;
 }
-int is_there_float(node_f* root, float data)
+int find_float(node_f* root, float data)
 {
+    printf("%s-> ",__func__);
     // find node NULL döndüyse yani bulamadı ise NULL && 1 -> 0 döndürür, eğer bulduysa yani null dışında birey döndüyse all && 1 ->1 döndürür. 
     return find_node_float(root, data) && 1;
 }
-int is_there_double(node_d* root, double data)
+int find_double(node_d* root, double data)
 {
+    printf("%s-> ",__func__);
     // find node NULL döndüyse yani bulamadı ise NULL && 1 -> 0 döndürür, eğer bulduysa yani null dışında birey döndüyse all && 1 ->1 döndürür. 
     return find_node_double(root, data) && 1;
 }
-int is_there_str(node_s* root, char* data)
+int find_str(node_s* root, char* data)
 {
+    printf("%s-> ",__func__);
     // find node NULL döndüyse yani bulamadı ise NULL && 1 -> 0 döndürür, eğer bulduysa yani null dışında birey döndüyse all && 1 ->1 döndürür. 
     return find_node_str(root, data) && 1;
 }
 
 
 //! Veri tiplerine bağlı dolaşımlar
-void travelsal_error(node* root){
+void travelsal_error(node_i* root){
     printf("Hatalı Bir veri tipi yada ağaç olmayan bir yapı girdisinde bulundunuz");
 }
 
-void in_order_travelsal_int(node *root)
+void in_order_travelsal_int(node_i* root)
 {
     if (root == NULL)
         return;
@@ -301,7 +313,7 @@ void in_order_travelsal_int(node *root)
     printf("%d [%c] ", root->data, root->color == RED ? 'R':'B'); //a > b ? a : b;
     in_order_travelsal_int(root->right);
 }
-void pre_order_travelsal_int(node *root)
+void pre_order_travelsal_int(node_i* root)
 {
     if (root == NULL)
         return;
@@ -309,7 +321,7 @@ void pre_order_travelsal_int(node *root)
     pre_order_travelsal_int(root->right);
     pre_order_travelsal_int(root->left);
 }
-void post_order_travelsal_int(node *root)
+void post_order_travelsal_int(node_i* root)
 {
     if (root == NULL)
         return;
@@ -344,14 +356,14 @@ void in_order_travelsal_string(node_s *root)
 
 
 //! init Fonksiyonları
-node* init_int(int data){
-        node* root = (node *)malloc(sizeof(node));
-        root->color = BLACK;
-        root->data = data;
-        root->left = NULL;
-        root->right = NULL;
-        root->parent = NULL;
-        return root;
+node_i* init_int(int data){
+    node_i* root = (node_i*)malloc(sizeof(node_i));
+    root->color = BLACK;
+    root->data = data;
+    root->left = NULL;
+    root->right = NULL;
+    root->parent = NULL;
+    return root;
 }
 node_d* init_double(double data){
         node_d* root = (node_d *)malloc(sizeof(node_d));
@@ -383,14 +395,15 @@ node_s* init_string(char* data){
 
 
 //! Eleman ekleme
-void fix_insert_int(node* root,node* child)
+void fix_insert_int(node_i* root,node_i* child)
 {
-    node* uncle = NULL;
+    node_i* uncle = NULL;
     /*Babanın rengi kırmızsı ve eklenen düğüm her ha zaman kırmızı 
     bu ndenele kırmızının çocuğu kırmızı oldu ve düzeltilmeye ihtiyaç var
     */
     if (child == root || child->parent == NULL)
     {
+        //root'a gelinmişse rengin siyah yapılıp çıkılması yeterli
         root->color = BLACK;
         return;
     }
@@ -398,12 +411,12 @@ void fix_insert_int(node* root,node* child)
         return;
 
     while (child->parent->color == RED)
-    {
+    {//Benim Ve Babamın renkleri kırmızı ise o zaman düzeltmeye ihtiyaç var
         if (child->parent == child->parent->parent->right)
-        {
+        {//babam dedemin sağındaysa o zaman amcam solundadır
             uncle = child->parent->parent->left;
             if (uncle != NULL && uncle->color == RED)
-            {
+            {//amcam ve babamı siyah yap dedeyi kırmızı yap
                 uncle->color = BLACK;
                 child->parent->color = BLACK;
                 child->parent->parent->color = RED;
@@ -412,7 +425,7 @@ void fix_insert_int(node* root,node* child)
             else
             {
                 if (child == child->parent->left)
-                {
+                {//Ben babamın solundaysam sağa döndür 
                     child = child->parent;
                     right_rotate_int(root, child);
                 }
@@ -425,7 +438,7 @@ void fix_insert_int(node* root,node* child)
         {
             uncle = child->parent->parent->right;
             if (uncle != NULL && uncle->color == RED)
-            {
+            {//amcam ve babamı sitah yap dedeyi kırmızı yap
                 uncle->color = BLACK;
                 child->parent->color = BLACK;
                 child->parent->parent->color = RED;
@@ -434,7 +447,7 @@ void fix_insert_int(node* root,node* child)
             else
             {
                 if (child == child->parent->right)
-                {
+                {//Ben babamın sağındaysam sola döndür 
                     child = child->parent;
                     left_rotate_int(root, child);
                 }
@@ -457,7 +470,7 @@ void fix_insert_float(node_f* root, node_f* child)
     bu ndenele kırmızının çocuğu kırmızı oldu ve düzeltilmeye ihtiyaç var
     */
     if (child == root || child->parent == NULL)
-    {
+    {//root'a gelinmişse rengin siyah yapılıp çıkılması yeterli
         root->color = BLACK;
         return;
     }
@@ -465,12 +478,12 @@ void fix_insert_float(node_f* root, node_f* child)
         return;
 
     while (child->parent->color == RED)
-    {
+    {//Benim Ve Babamın renkleri kırmızı ise o zaman düzeltmeye ihtiyaç var
         if (child->parent == child->parent->parent->right)
-        {
+        {//babam dedemin sağındaysa o zaman amcam solundadır
             uncle = child->parent->parent->left;
             if (uncle != NULL && uncle->color == RED)
-            {
+            {//amcam ve babamı siyah yap dedeyi kırmızı yap
                 uncle->color = BLACK;
                 child->parent->color = BLACK;
                 child->parent->parent->color = RED;
@@ -479,7 +492,7 @@ void fix_insert_float(node_f* root, node_f* child)
             else
             {
                 if (child == child->parent->left)
-                {
+                {//Ben babamın solundaysam sağa döndür 
                     child = child->parent;
                     right_rotate_float(root, child);
                 }
@@ -492,7 +505,7 @@ void fix_insert_float(node_f* root, node_f* child)
         {
             uncle = child->parent->parent->right;
             if (uncle != NULL && uncle->color == RED)
-            {
+            {//amcam ve babamı siyah yap dedeyi kırmızı yap
                 uncle->color = BLACK;
                 child->parent->color = BLACK;
                 child->parent->parent->color = RED;
@@ -501,7 +514,7 @@ void fix_insert_float(node_f* root, node_f* child)
             else
             {
                 if (child == child->parent->right)
-                {
+                {//Ben babamın sağındaysam sola döndür 
                     child = child->parent;
                     left_rotate_float(root, child);
                 }
@@ -524,7 +537,7 @@ void fix_insert_double(node_d* root, node_d* child)
     bu ndenele kırmızının çocuğu kırmızı oldu ve düzeltilmeye ihtiyaç var
     */
     if (child == root || child->parent == NULL)
-    {
+    {//root'a gelinmişse rengin siyah yapılıp çıkılması yeterli
         root->color = BLACK;
         return;
     }
@@ -532,12 +545,12 @@ void fix_insert_double(node_d* root, node_d* child)
         return;
 
     while (child->parent->color == RED)
-    {
+    {//Benim Ve Babamın renkleri kırmızı ise o zaman düzeltmeye ihtiyaç var
         if (child->parent == child->parent->parent->right)
-        {
+        {//babam dedemin sağındaysa o zaman amcam solundadır
             uncle = child->parent->parent->left;
             if (uncle != NULL && uncle->color == RED)
-            {
+            {//amcam ve babamı siyah yap dedeyi kırmızı yap
                 uncle->color = BLACK;
                 child->parent->color = BLACK;
                 child->parent->parent->color = RED;
@@ -546,7 +559,7 @@ void fix_insert_double(node_d* root, node_d* child)
             else
             {
                 if (child == child->parent->left)
-                {
+                {//Ben babamın solundaysam sağa döndür 
                     child = child->parent;
                     right_rotate_double(root, child);
                 }
@@ -559,7 +572,7 @@ void fix_insert_double(node_d* root, node_d* child)
         {
             uncle = child->parent->parent->right;
             if (uncle != NULL && uncle->color == RED)
-            {
+            {//amcam ve babamı siyah yap dedeyi kırmızı yap
                 uncle->color = BLACK;
                 child->parent->color = BLACK;
                 child->parent->parent->color = RED;
@@ -568,7 +581,7 @@ void fix_insert_double(node_d* root, node_d* child)
             else
             {
                 if (child == child->parent->right)
-                {
+                {//Ben babamın sağındaysam sola döndür 
                     child = child->parent;
                     left_rotate_double(root, child);
                 }
@@ -591,7 +604,7 @@ void fix_insert_str(node_s* root, node_s* child)
     bu ndenele kırmızının çocuğu kırmızı oldu ve düzeltilmeye ihtiyaç var
     */
     if (child == root || child->parent == NULL)
-    {
+    {//root'a gelinmişse rengin siyah yapılıp çıkılması yeterli
         root->color = BLACK;
         return;
     }
@@ -599,12 +612,12 @@ void fix_insert_str(node_s* root, node_s* child)
         return;
 
     while (child->parent->color == RED)
-    {
+    {//Benim Ve Babamın renkleri kırmızı ise o zaman düzeltmeye ihtiyaç var
         if (child->parent == child->parent->parent->right)
-        {
+        {//babam dedemin sağındaysa o zaman amcam solundadır
             uncle = child->parent->parent->left;
             if (uncle != NULL && uncle->color == RED)
-            {
+            {//amcam ve babamı siyah yap dedeyi kırmızı yap
                 uncle->color = BLACK;
                 child->parent->color = BLACK;
                 child->parent->parent->color = RED;
@@ -613,7 +626,7 @@ void fix_insert_str(node_s* root, node_s* child)
             else
             {
                 if (child == child->parent->left)
-                {
+                {//Ben babamın sağındaysam sola döndür 
                     child = child->parent;
                     right_rotate_str(root, child);
                 }
@@ -626,7 +639,7 @@ void fix_insert_str(node_s* root, node_s* child)
         {
             uncle = child->parent->parent->right;
             if (uncle != NULL && uncle->color == RED)
-            {
+            {//amcam ve babamı siyah yap dedeyi kırmızı yap
                 uncle->color = BLACK;
                 child->parent->color = BLACK;
                 child->parent->parent->color = RED;
@@ -635,7 +648,7 @@ void fix_insert_str(node_s* root, node_s* child)
             else
             {
                 if (child == child->parent->right)
-                {
+                {//Ben babamın sağındaysam sola döndür 
                     child = child->parent;
                     left_rotate_str(root, child);
                 }
@@ -653,10 +666,10 @@ void fix_insert_str(node_s* root, node_s* child)
 }
 
 
-void insert_int(node* root, int data)
+void insert_int(node_i* root, int data)
 { //!Geri dönüşü void olan bir ekleme fonksyonu
-    node *iterParent = NULL;
-    node *iter = root;
+    node_i* iterParent = NULL;
+    node_i* iter = root;
     //iter NULL oluncaya kadar devam et bu sayede gelen datayı yerleştireceğimiz yeri buluruz
     while (iter != NULL)
     {
@@ -667,7 +680,7 @@ void insert_int(node* root, int data)
             iter = iter->left;
     }
     //Create New Node
-    node *temp = (node *)malloc(sizeof(node));
+    node_i* temp = (node_i*)malloc(sizeof(node_i));
     temp->color = RED; //Yeni düğüm KIRMIZI
     temp->data = data;
     temp->parent = iterParent; // yeni düğümünün parent'ı iterin parentı yani NULL olan yaprağın atası

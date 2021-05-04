@@ -37,9 +37,9 @@ clean:
 	rm -rf $(OBJDIR)
 
 #Opsiyonel kisim
-run: $(TESTDIR)/test
+run: $(TESTDIR)/rbt_test
 	@clear
-	@./$(TOBJS)
+	@./$(TESTDIR)/rbt_test
 
 debug: all
 	./$(TOBJS)
